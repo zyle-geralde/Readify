@@ -1,5 +1,6 @@
 package com.example.readify;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,26 +82,101 @@ public class ConfirmUpgrade extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Bundle bundle = getArguments();
+        String uid = "?";
+        String name = "?";
+        String email = "?";
+        String passme = "?";
+        String typeme = "?";
+
+        if (bundle != null) {
+            uid = bundle.getString("uid");
+            name = bundle.getString("name");
+            email = bundle.getString("email");
+            passme = bundle.getString("passme");
+            typeme = bundle.getString("typeme");
+            System.out.println(email+passme+"Hello");
+        }
+        else{
+            System.out.println("Pass now");
+            System.out.println(email+passme);
+        }
+
+        TextView invalidinp= view.findViewById(R.id.invalidInp);
+        invalidinp.setVisibility(View.GONE);
+
+
         Button confirmbut = view.findViewById(R.id.confirmbut);
+
+
+        final String typemFinal = typeme;
+        final int userIdToUpdateFinal = Integer.parseInt(uid);
+        final String emailm = email;
+        final String passFinal = passme;
         confirmbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                transaction.setReorderingAllowed(true);
+                TextView emailconf = view.findViewById(R.id.emialconf);
+                EditText passconf = view.findViewById(R.id.passconf);
 
-                transaction.replace(R.id.fragmentContainerView, CongratsMessage.class, null);
+                if(emailconf.getText().toString().equals(emailm) && passconf.getText().toString().equals(passFinal)){
 
-                transaction.addToBackStack(null);
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(()->{
+                        Connection connection = null;
+                        try {
+                            // Load the JDBC driver
+                            Class.forName("com.mysql.jdbc.Driver");
 
-                transaction.commit();
+                            // Define the connection URL
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                            // Provide database credentials
+                            String username = "";
+                            String password = "";
+
+                            // Establish the database connection
+                            connection = DriverManager.getConnection(url, username, password);
+                            System.out.println("Connected...");
+
+                            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET Type = ? WHERE UserId = ?");
+
+                            String typem = "Author";
+                            int userIdToUpdate = userIdToUpdateFinal;
+                            preparedStatement.setString(1, typem);
+                            preparedStatement.setInt(2, userIdToUpdate);
+                            int rowsUpdated = preparedStatement.executeUpdate();
+                            if (rowsUpdated > 0) {
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Errorme"+e);
+                        }
+
+                    });
+
+                    TextView errorText = view.findViewById(R.id.invalidInp);
+                    errorText.setVisibility(View.GONE);
+
+
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                    transaction.setReorderingAllowed(true);
+
+                    transaction.replace(R.id.fragmentContainerView, CongratsMessage.class, null);
+
+                    transaction.addToBackStack(null);
+
+                    transaction.commit();
+                }
+                else{
+                    TextView errorText = view.findViewById(R.id.invalidInp);
+                    errorText.setVisibility(View.VISIBLE);
+                }
             }
         });
-
-
-
     }
 
     //confirmbut

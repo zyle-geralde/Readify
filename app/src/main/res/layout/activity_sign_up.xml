@@ -21,6 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/ErrorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="148dp"
+                android:text="Invalid Email"
+                android:textColor="#3F3C6F"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SignupBut" />
+
             <Button
                 android:id="@+id/SignupBut"
                 android:layout_width="120dp"
@@ -53,17 +66,17 @@
                 android:layout_marginEnd="56dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2">
+                app:layout_constraintTop_toBottomOf="@+id/passwordText">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/maleText"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Male"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/femaleText"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Female"
@@ -71,7 +84,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editTextTextPassword2"
+                android:id="@+id/passwordText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -81,10 +94,10 @@
                 android:inputType="textPassword"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+                app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
             <EditText
-                android:id="@+id/editTextText3"
+                android:id="@+id/emailText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -94,10 +107,10 @@
                 android:inputType="text"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+                app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/nameText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="248dp"

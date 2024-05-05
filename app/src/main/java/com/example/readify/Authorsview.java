@@ -81,8 +81,19 @@ public class Authorsview extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button upgradeBUt = view.findViewById(R.id.upgradeBUt);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String uid = bundle.getString("uid");
+            String name = bundle.getString("name");
+            String email = bundle.getString("email");
+            String passme = bundle.getString("passme");
+            String typeme = bundle.getString("typeme");
+        }
+        else{
+            System.out.println("Pass now");
+        }
 
+        Button upgradeBUt = view.findViewById(R.id.upgradeBUt);
 
         upgradeBUt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +104,10 @@ public class Authorsview extends Fragment {
 
                 transaction.setReorderingAllowed(true);
 
-                transaction.replace(R.id.fragmentContainerView, ConfirmUpgrade.class, null);
+                ConfirmUpgrade fragment = new ConfirmUpgrade();
+                fragment.setArguments(bundle);
+
+                transaction.replace(R.id.fragmentContainerView, fragment);
 
                 transaction.addToBackStack(null);
 
