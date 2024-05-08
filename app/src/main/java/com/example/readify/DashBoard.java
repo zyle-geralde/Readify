@@ -70,6 +70,7 @@ public class DashBoard extends AppCompatActivity {
                         Class.forName("com.mysql.jdbc.Driver");
 
                         // Define the connection URL
+                        //10.0.2.2
                         String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
 
                         // Provide database credentials
