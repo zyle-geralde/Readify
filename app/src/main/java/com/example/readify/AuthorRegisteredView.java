@@ -107,6 +107,15 @@ public class AuthorRegisteredView extends Fragment {
         }
 
         LinearLayout parentLinearLayout = view.findViewById(R.id.authorbookbox);
+        parentLinearLayout.removeAllViews();
+        LinearLayout firstHorizontalLayout1 = new LinearLayout(requireContext());
+        firstHorizontalLayout1.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        firstHorizontalLayout1.setOrientation(LinearLayout.HORIZONTAL);
+        firstHorizontalLayout1.setPadding(0, 20, 0, 20);
+        parentLinearLayout.addView(firstHorizontalLayout1);
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(()->{
@@ -196,6 +205,27 @@ public class AuthorRegisteredView extends Fragment {
                             textViewID.setTextSize(2);
                             textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             firstVerticalLayout.addView(textViewID);
+
+                            firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                    transaction.setReorderingAllowed(true);
+
+                                    bundle.putString("bookid",textViewID.getText().toString());
+                                    EditBook fragment = new EditBook();
+                                    fragment.setArguments(bundle);
+
+                                    transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                    transaction.addToBackStack(null);
+
+                                    transaction.commit();
+                                }
+                            });
                         }
                         else{
                             LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
@@ -249,6 +279,28 @@ public class AuthorRegisteredView extends Fragment {
                             textViewID.setTextSize(2);
                             textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             firstVerticalLayout.addView(textViewID);
+
+                            firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    System.out.println(textViewID.getText());
+                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                    transaction.setReorderingAllowed(true);
+
+                                    bundle.putString("bookid",textViewID.getText().toString());
+                                    EditBook fragment = new EditBook();
+                                    fragment.setArguments(bundle);
+
+                                    transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                    transaction.addToBackStack(null);
+
+                                    transaction.commit();
+                                }
+                            });
                         }
                     });
                 }
@@ -367,6 +419,28 @@ public class AuthorRegisteredView extends Fragment {
                                         textViewID.setTextSize(2);
                                         textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                         firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                System.out.println(textViewID.getText());
+                                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                                transaction.setReorderingAllowed(true);
+
+                                                bundle.putString("bookid",textViewID.getText().toString());
+                                                EditBook fragment = new EditBook();
+                                                fragment.setArguments(bundle);
+
+                                                transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                                transaction.addToBackStack(null);
+
+                                                transaction.commit();
+                                            }
+                                        });
                                     }
                                     else{
                                         LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
@@ -420,6 +494,28 @@ public class AuthorRegisteredView extends Fragment {
                                         textViewID.setTextSize(2);
                                         textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                         firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                System.out.println(textViewID.getText());
+                                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                                transaction.setReorderingAllowed(true);
+
+                                                bundle.putString("bookid",textViewID.getText().toString());
+                                                EditBook fragment = new EditBook();
+                                                fragment.setArguments(bundle);
+
+                                                transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                                transaction.addToBackStack(null);
+
+                                                transaction.commit();
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -497,6 +593,28 @@ public class AuthorRegisteredView extends Fragment {
                                             textViewID.setTextSize(2);
                                             textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                             firstVerticalLayout.addView(textViewID);
+
+                                            firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    System.out.println(textViewID.getText());
+                                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                                    transaction.setReorderingAllowed(true);
+
+                                                    bundle.putString("bookid",textViewID.getText().toString());
+                                                    EditBook fragment = new EditBook();
+                                                    fragment.setArguments(bundle);
+
+                                                    transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                                    transaction.addToBackStack(null);
+
+                                                    transaction.commit();
+                                                }
+                                            });
                                         }
                                         else{
                                             LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
@@ -550,6 +668,28 @@ public class AuthorRegisteredView extends Fragment {
                                             textViewID.setTextSize(2);
                                             textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                             firstVerticalLayout.addView(textViewID);
+
+                                            firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    System.out.println(textViewID.getText());
+                                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                                                    transaction.setReorderingAllowed(true);
+
+                                                    bundle.putString("bookid",textViewID.getText().toString());
+                                                    EditBook fragment = new EditBook();
+                                                    fragment.setArguments(bundle);
+
+                                                    transaction.replace(R.id.fragmentContainerView, fragment);
+
+                                                    transaction.addToBackStack(null);
+
+                                                    transaction.commit();
+                                                }
+                                            });
                                         }
                                     });
                                 }

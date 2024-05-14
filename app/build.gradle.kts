@@ -38,4 +38,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("mysql:mysql-connector-java:5.1.49")
+    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
 }

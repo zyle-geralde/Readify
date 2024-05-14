@@ -39,6 +39,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -278,6 +279,7 @@ public class PublishBook extends Fragment {
             System.out.println("URI: "+uri);
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
             executorService.execute(()->{
                 Connection connection = null;
                 try {
@@ -384,6 +386,8 @@ public class PublishBook extends Fragment {
                     pstmt.close();
                     connection.close();
 
+                    latch.countDown();
+
 
 
                 } catch (Exception e) {
@@ -391,6 +395,13 @@ public class PublishBook extends Fragment {
                 }
 
             });
+
+            // Wait for the executorService to complete
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                // Handle InterruptedException
+            }
 
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();

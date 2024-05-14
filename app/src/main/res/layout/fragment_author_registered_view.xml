@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6E8DD"
     tools:context=".AuthorRegisteredView">
 
     <LinearLayout
@@ -26,7 +27,8 @@
                 android:ems="10"
                 android:hint="Search"
                 android:inputType="text"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:textStyle="normal" />
         </LinearLayout>
 
         <LinearLayout
