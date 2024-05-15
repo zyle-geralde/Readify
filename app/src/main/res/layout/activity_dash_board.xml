@@ -108,7 +108,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/imageButton3"
+                        android:id="@+id/WalletBut"
                         android:layout_width="120px"
                         android:layout_height="120px"
                         android:background="@drawable/wallet"

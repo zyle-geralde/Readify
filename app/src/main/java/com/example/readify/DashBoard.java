@@ -1,6 +1,7 @@
 package com.example.readify;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class DashBoard extends AppCompatActivity {
         final String email = intent.getStringExtra("email");
         String passme = intent.getStringExtra("pass");
         String typeme = intent.getStringExtra("type");
+        String walletme = intent.getStringExtra("wallet");
 
         Bundle bundle = new Bundle();
         bundle.putString("uid", uid);
@@ -49,6 +51,7 @@ public class DashBoard extends AppCompatActivity {
         bundle.putString("email", email);
         bundle.putString("passme", passme);
         bundle.putString("typeme", typeme);
+        bundle.putString("wallet",walletme);
 
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -154,6 +157,27 @@ public class DashBoard extends AppCompatActivity {
                 transaction.setReorderingAllowed(true);
 
                 transaction.replace(R.id.fragmentContainerView, DashBoardFrag.class, null);
+
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        ImageButton WalletBut = (ImageButton) findViewById(R.id.WalletBut);
+        WalletBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.setReorderingAllowed(true);
+
+                WalletView fragment = new WalletView();
+                fragment.setArguments(bundle);
+
+                transaction.replace(R.id.fragmentContainerView, fragment);
 
                 transaction.addToBackStack(null);
 

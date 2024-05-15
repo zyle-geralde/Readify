@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             String email = resultSet.getString("Email");
                             String passwordhold = resultSet.getString("Password");
                             String typeme = resultSet.getString("Type");
+                            double walletme = resultSet.getDouble("wallet");
 
                             if(emailText.getText().toString().equals(email) && passText.getText().toString().equals(passwordhold)){
                                 Intent intent = new Intent(MainActivity.this, DashBoard.class);
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("email",email);
                                 intent.putExtra("pass",passwordhold);
                                 intent.putExtra("type",typeme);
+                                intent.putExtra("wallet",walletme+"");
 
                                 runOnUiThread(() -> {
                                     TextView errorText = (TextView) findViewById(R.id.errorText);
