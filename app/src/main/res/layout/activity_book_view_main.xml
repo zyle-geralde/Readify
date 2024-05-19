@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookViewMain">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6E8DD"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/return_button"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#F6E8DD"
+                    android:rotationY="180"
+                    app:srcCompat="@drawable/right_arrow" />
+
+                <ImageButton
+                    android:id="@+id/wishlist_button"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#F6E8DD"
+                    app:srcCompat="@drawable/bookmark" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="163dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/book_cover_photo"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/philosophy"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/philosophy" />
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/book_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="The Problems With Philosophy"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/book_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Bertrand Russell" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/book_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4.0 ★"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/number_of_reviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rating"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="?android:attr/listDivider"
+                    android:backgroundTint="#F6E8DD" />
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/book_audio_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:background="@drawable/ebook"
+                        android:backgroundTint="#F6E8DD"
+                        app:srcCompat="@drawable/ebook" />
+
+                    <TextView
+                        android:id="@+id/audiobook_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ebook"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/preview_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF969A"
+                    android:text=" Download"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/buy_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#3F3C6F"
+                    android:text="Buy ₱199.00"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/read_more_about_audiobook"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="About this ebook"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/about_book_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="3sp"
+                    android:text="jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuujjjjjjjjjjjjjj"
+                    android:textSize="12.5sp" />
+
+                <LinearLayout
+                    android:id="@+id/read_more_aboutAudiobook"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/audiobook_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:rotation="90"
+                        app:srcCompat="@drawable/next"
+                        tools:srcCompat="@drawable/next" />
+
+                    <TextView
+                        android:id="@+id/audiobook_read_more_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Read more"
+                        android:textSize="12.5sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/about_book_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/left_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/read_more_about_author"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Ratings"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/overall_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="4.0"
+                        android:textAlignment="center"
+                        android:textSize="80sp" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="About the author"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/about_author_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="3sp"
+                    android:text="pppp"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/read_more_aboutAuthor"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/author_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:rotation="90"
+                        app:srcCompat="@drawable/next"
+                        tools:srcCompat="@drawable/next" />
+
+                    <TextView
+                        android:id="@+id/author_read_more_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Read more"
+                        android:textSize="12.5sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/about_author_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/left_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/more_books_by_author"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="More by Bertrand Russell"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/more_books_by_author_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@drawable/left_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_author_cover_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_title_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_price_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_author_cover_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_title_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_price_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_author_cover_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_title_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_price_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_author_cover_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_title_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_author_price_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Similar audiobooks"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/similar_audiobooks_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@drawable/left_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/similar_books_cover_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/similar_books_title_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/similar_books_price_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/similar_books_cover_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/similar_books_title_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/similar_books_price_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/similar_books_cover_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/similar_books_title_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/similar_books_price_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/similar_books_cover_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/similar_books_title_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/similar_books_price_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Narrated by James Langton"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/more_books_by_narrator_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@drawable/left_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_narrator_cover_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_title_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_price_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_narrator_cover_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_title_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_price_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_narrator_cover_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_title_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_price_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/more_books_by_narrator_cover_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        app:srcCompat="@drawable/mysticism_bertrand" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_title_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Mysticism and Logic Bertrand Russell"
+                        android:textAlignment="viewStart"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/more_books_by_narrator_price_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7sp"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="1"
+                        android:text="₱599.00"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Rate this audiobook"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Tell others what you think" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="68dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RatingBar
+                        android:id="@+id/ratingBar4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:numStars="5" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/write_review_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="120dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#3F3C6F"
+                    android:text="Rate" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="40dp"
+                    android:layout_weight="1"
+                    android:text="Powered by ZYKAREO Corporation"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button preview, buy, write_review;
+    ImageButton to_reviews;
+    LinearLayout read_more_aboutAudiobook, read_more_author;
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

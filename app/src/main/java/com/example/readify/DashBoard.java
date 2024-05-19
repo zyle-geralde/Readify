@@ -53,6 +53,21 @@ public class DashBoard extends AppCompatActivity {
         bundle.putString("typeme", typeme);
         bundle.putString("wallet",walletme);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.setReorderingAllowed(true);
+
+        DashBoardFrag fragment = new DashBoardFrag();
+        fragment.setArguments(bundle);
+
+        transaction.replace(R.id.fragmentContainerView, fragment);
+
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setReorderingAllowed(true);
@@ -156,7 +171,10 @@ public class DashBoard extends AppCompatActivity {
 
                 transaction.setReorderingAllowed(true);
 
-                transaction.replace(R.id.fragmentContainerView, DashBoardFrag.class, null);
+                DashBoardFrag fragment = new DashBoardFrag();
+                fragment.setArguments(bundle);
+
+                transaction.replace(R.id.fragmentContainerView, fragment);
 
                 transaction.addToBackStack(null);
 

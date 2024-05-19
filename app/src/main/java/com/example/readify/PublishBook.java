@@ -70,6 +70,8 @@ public class PublishBook extends Fragment {
 
     Bundle bundle;
 
+    String email;
+
     public PublishBook() {
         // Required empty public constructor
     }
@@ -116,7 +118,7 @@ public class PublishBook extends Fragment {
         if (bundle != null) {
             uid = bundle.getString("uid");
             String name = bundle.getString("name");
-            String email = bundle.getString("email");
+            email = bundle.getString("email");
             String passme = bundle.getString("passme");
             String typeme = bundle.getString("typeme");
             System.out.println(uid+name+email+passme+typeme);
@@ -298,7 +300,7 @@ public class PublishBook extends Fragment {
                     System.out.println("Connected...");
 
                     // SQL statement to insert the URI into the database
-                    String sql = "INSERT INTO books (userid,title,aboutbook,aboutauthor,buyers,rate,price,cover,bookpdf) VALUES (?,?,?,?,?,?,?,?,?)";
+                    String sql = "INSERT INTO books (userid,title,aboutbook,aboutauthor,buyers,rate,price,cover,bookpdf,authorname) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
                     // Create a prepared statement
                     PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -311,6 +313,7 @@ public class PublishBook extends Fragment {
                     pstmt.setDouble(7,Double.parseDouble(priceinp.getText().toString()));
                     pstmt.setString(8,uri+"");
                     pstmt.setString(9,uripdf+"");
+                    pstmt.setString(10,email);
 
                     // Execute the statement
                     pstmt.executeUpdate();

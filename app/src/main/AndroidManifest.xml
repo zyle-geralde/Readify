@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Readify"
         tools:targetApi="31">
         <activity
+            android:name=".BookViewMain"
+            android:exported="false" />
+        <activity
             android:name=".PDFViewAct"
             android:exported="false" />
         <activity
