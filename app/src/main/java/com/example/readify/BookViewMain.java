@@ -1,15 +1,18 @@
 package com.example.readify;
 
+import android.app.DownloadManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,17 +22,16 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,11 +45,16 @@ public class BookViewMain extends AppCompatActivity {
     String userid;
     String bookpdf;
 
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final int PICK_PDF_REQUEST = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book_view_main);
+
+
 
         Intent intent = getIntent();
         userid = intent.getStringExtra("userid");
@@ -65,7 +72,7 @@ public class BookViewMain extends AppCompatActivity {
         String buyername =  intent.getStringExtra("buyername");
 
 
-        preview = (Button) findViewById(R.id.preview_button);
+        preview = (Button) findViewById(R.id.dlButton);
         buy = (Button) findViewById(R.id.buy_button);
         write_review = (Button) findViewById(R.id.write_review_button);
 
@@ -89,6 +96,7 @@ public class BookViewMain extends AppCompatActivity {
         ratingBar.setIsIndicator(true);
 
         Button buy_button = (Button) findViewById(R.id.buy_button);
+        Button dlButton = findViewById(R.id.dlButton);
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(()->{
@@ -127,6 +135,7 @@ public class BookViewMain extends AppCompatActivity {
                         @Override
                         public void run() {
                             buy_button.setText("Read");
+                            dlButton.setEnabled(true);
                         }
                     });
                 }
@@ -135,6 +144,7 @@ public class BookViewMain extends AppCompatActivity {
                         @Override
                         public void run() {
                             buy_button.setText(String.format("Buy $%.2f",Double.parseDouble(price)));
+                            dlButton.setEnabled(false);
                         }
                     });
 
@@ -158,7 +168,6 @@ public class BookViewMain extends AppCompatActivity {
                         Intent intent = new Intent(BookViewMain.this, PDFViewAct.class);
                         intent.putExtra("pdfUri",bookpdf);
                         startActivity(intent);
-
                 }
                 else{
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -210,7 +219,6 @@ public class BookViewMain extends AppCompatActivity {
                                 String fspec = String.format("%.2f",newbal);
                                 double newbal2 = Double.parseDouble(fspec);
 
-
                                 // Create a prepared statement
                                 PreparedStatement pstmt1 = connection.prepareStatement(sql1);
                                 pstmt1.setDouble(1,newbal2);
@@ -228,7 +236,14 @@ public class BookViewMain extends AppCompatActivity {
                                 pstmt3.executeUpdate();
                                 pstmt3.close();
 
-                                buy_button.setText("Read");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        buy_button.setText("Read");
+                                        dlButton.setEnabled(true);
+                                    }
+                                });
+
                             }
 
                             // Close resources
@@ -246,6 +261,38 @@ public class BookViewMain extends AppCompatActivity {
         });
 
 
+
+
+        dlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(BookViewMain.this,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(BookViewMain.this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(BookViewMain.this,
+                            new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            PERMISSION_REQUEST_CODE);
+                } else {
+                    Uri uri = Uri.parse(bookpdf);
+                    String fileName = getFileName(uri);
+                    String uniqueFileName = getUniqueFileName(fileName);
+                    saveFileFromUri(uri, uniqueFileName);
+                }
+            }
+        });
+
+        // Request permission if not granted initially
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSION_REQUEST_CODE);
+        }
 
 
         read_more_aboutAudiobook = (LinearLayout) findViewById(R.id.read_more_aboutAudiobook);
@@ -293,5 +340,86 @@ public class BookViewMain extends AppCompatActivity {
                 review.setLayoutParams(params);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_PDF_REQUEST && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                String fileName = getFileName(uri);
+                String uniqueFileName = getUniqueFileName(fileName);
+                saveFileFromUri(uri, uniqueFileName);
+            }
+        }
+    }
+
+    private String getFileName(Uri uri) {
+        String fileName = "downloadedfile.pdf";
+        if (uri.getScheme().equals("content")) {
+            String[] projection = {DocumentsContract.Document.COLUMN_DISPLAY_NAME};
+            try (Cursor cursor = getContentResolver().query(uri, projection, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    fileName = cursor.getString(0);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (uri.getScheme().equals("file")) {
+            fileName = new File(uri.getPath()).getName();
+        }
+        return fileName;
+    }
+
+    private String getUniqueFileName(String fileName) {
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(directory, fileName);
+        String fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
+        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+        int count = 1;
+        while (file.exists()) {
+            fileName = fileBaseName + "(" + count + ")" + fileExtension;
+            file = new File(directory, fileName);
+            count++;
+        }
+        return fileName;
+    }
+
+    private void saveFileFromUri(Uri uri, String fileName) {
+        ContentResolver contentResolver = getContentResolver();
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(downloadsDir, fileName);
+
+        try (InputStream inputStream = contentResolver.openInputStream(uri);
+             FileOutputStream outputStream = new FileOutputStream(file)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            Toast.makeText(this, "File downloaded: " + fileName, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to download file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Start file picker intent to choose a file
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("application/pdf");
+                startActivityForResult(intent, PICK_PDF_REQUEST);
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
