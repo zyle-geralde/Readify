@@ -217,14 +217,21 @@ public class EditBook extends Fragment {
                             EditText PriceEdit = (EditText) view.findViewById(R.id.PriceEdit);
                             PriceEdit.setText(pricedb+"");
 
-                            TextView BuyersEdit = (TextView) view.findViewById(R.id.BuyersEdit);
-                            BuyersEdit.setText(buyersdb+"");
+
 
                             TextView RatingEdit = (TextView) view.findViewById(R.id.RatingEdit);
-                            RatingEdit.setText(ratedb+"");
+
+
+                            if(buyersdb <= 0 && ratedb <= 0){
+                                RatingEdit.setText(0.0+"");
+                            }
+                            else{
+                                RatingEdit.setText(String.format("%.1f",(ratedb/(double)buyersdb)));
+                            }
+
 
                             RatingBar RatingBarEdit = (RatingBar) view.findViewById(R.id.RatingBarEdit);
-                            RatingBarEdit.setRating(Float.parseFloat(ratedb+""));
+                            RatingBarEdit.setRating(Float.parseFloat(String.format("%.1f",(ratedb/(double)buyersdb))));
                             RatingBarEdit.setIsIndicator(true);
                         }
                     });

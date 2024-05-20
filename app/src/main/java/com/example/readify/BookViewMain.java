@@ -44,7 +44,9 @@ public class BookViewMain extends AppCompatActivity {
     TextView book_title;
     String userid;
     String bookpdf;
+    String buyers;
 
+    String rate;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int PICK_PDF_REQUEST = 2;
 
@@ -64,10 +66,10 @@ public class BookViewMain extends AppCompatActivity {
         String aboutbook = intent.getStringExtra("aboutbook");
         String aboutauthor = intent.getStringExtra("aboutauthor");
         String price = intent.getStringExtra("price");
-        String rate  = intent.getStringExtra("rate");
+        rate  = intent.getStringExtra("rate");
         String cover = intent.getStringExtra("cover");
         bookpdf =  intent.getStringExtra("bookpdf");
-        String buyers = intent.getStringExtra("buyers");
+        buyers = intent.getStringExtra("buyers");
         String wallet =  intent.getStringExtra("wallet");
         String buyername =  intent.getStringExtra("buyername");
 
@@ -84,19 +86,36 @@ public class BookViewMain extends AppCompatActivity {
         ImageView book_cover_photo = (ImageView) findViewById(R.id.book_cover_photo);
         book_cover_photo.setImageURI(Uri.parse(cover));
         TextView book_rating = (TextView) findViewById(R.id.book_rating);
-        book_rating.setText(String.format("%s ★",rate));
+        if(Integer.parseInt(buyers) <= 0 && Double.parseDouble(rate) <= 0){
+            book_rating.setText("★0.0");
+        }
+        else{
+            book_rating.setText(String.format("★%.1f",(Double.parseDouble(rate)/(double)Integer.parseInt(buyers))));
+        }
         TextView about_book_preview= (TextView) findViewById(R.id.about_book_preview);
         about_book_preview.setText(aboutbook);
         TextView about_author_preview = (TextView) findViewById(R.id.about_author_preview);
         about_author_preview.setText(aboutauthor);
         TextView overall_rating = (TextView) findViewById(R.id.overall_rating);
-        overall_rating.setText(rate);
+        if(Integer.parseInt(buyers) <= 0 && Double.parseDouble(rate) <= 0){
+            overall_rating.setText("0.0");
+        }
+        else{
+            overall_rating.setText(String.format("%.1f",(Double.parseDouble(rate)/(double)Integer.parseInt(buyers))));
+        }
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setRating(Float.parseFloat(rate));
+        if(Integer.parseInt(buyers) <= 0 && Double.parseDouble(rate) <= 0){
+            ratingBar.setRating(0.0f);
+        }
+        else{
+            ratingBar.setRating(Float.parseFloat(String.format("%.1f",(Double.parseDouble(rate)/(double)Integer.parseInt(buyers)))));
+        }
         ratingBar.setIsIndicator(true);
 
         Button buy_button = (Button) findViewById(R.id.buy_button);
         Button dlButton = findViewById(R.id.dlButton);
+        Button write_review_button = (Button) findViewById(R.id.write_review_button);
+        RatingBar ratingBar4 = (RatingBar) findViewById(R.id.ratingBar4);
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(()->{
@@ -338,6 +357,108 @@ public class BookViewMain extends AppCompatActivity {
                     flag = false;
                 }
                 review.setLayoutParams(params);
+            }
+        });
+
+        write_review_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(ratingBar4.getRating() <= 0){
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, "Please Rate", duration);
+                    toast.show();
+                }
+                else{
+                    if(write_review_button.getText().toString().equals("Rate")){
+                        ExecutorService executorService = Executors.newSingleThreadExecutor();
+                        executorService.execute(()->{
+                            Connection connection = null;
+                            try {
+                                // Load the JDBC driver
+                                Class.forName("com.mysql.jdbc.Driver");
+
+                                // Define the connection URL
+                                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                                // Provide database credentials
+                                String username = "";
+                                String password = "";
+
+                                // Establish the database connection
+                                connection = DriverManager.getConnection(url, username, password);
+                                System.out.println("Connected...");
+
+                                String selectSql = "SELECT buyers,rate FROM books WHERE bookid = ?";
+                                PreparedStatement selectStmt = connection.prepareStatement(selectSql);
+                                selectStmt.setInt(1, Integer.parseInt(bookid));
+                                ResultSet rs = selectStmt.executeQuery();
+
+                                int currentBuyers = 0;
+                                double currate = 0;
+                                if (rs.next()) {
+                                    currentBuyers = rs.getInt("buyers");
+                                    currate = rs.getDouble("rate");
+                                }
+
+                                // Close the select statement
+                                selectStmt.close();
+
+                                // Increment the buyers value
+                                int newBuyers = currentBuyers + 1;
+
+                                // SQL statement to update the buyers and rate fields in the database
+                                String updateSql = "UPDATE books SET buyers = ?, rate = ? WHERE bookid = ?";
+
+                                // Get the new rating value
+                                double rateUp = ratingBar4.getRating();
+                                String formatme = String.format("%.1f", rateUp);
+                                double newRate = Double.parseDouble(formatme) + currate;
+
+                                // Create a prepared statement for the update
+                                PreparedStatement updateStmt = connection.prepareStatement(updateSql);
+                                updateStmt.setInt(1, newBuyers);
+                                updateStmt.setDouble(2, newRate);
+                                updateStmt.setInt(3, Integer.parseInt(bookid));
+
+                                // Execute the update statement
+                                int res = updateStmt.executeUpdate();
+                                System.out.println("Update result: " + res);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Context context = getApplicationContext();
+                                        int duration = Toast.LENGTH_LONG;
+                                        Toast toast = Toast.makeText(context, "Rate Successful", duration);
+                                        toast.show();
+                                        finish();
+                                    }
+                                });
+
+                                // Close the update statement
+                                updateStmt.close();
+
+                                // Close the database connection
+                                connection.close();
+
+                            } catch (Exception e) {
+                                System.out.println("Errorme"+e);
+                            }
+
+                        });
+                        finish();
+                    }
+                }
+            }
+        });
+
+        ImageView return_button = (ImageView) findViewById(R.id.return_button);
+        return_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

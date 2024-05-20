@@ -226,7 +226,13 @@ public class DashBoardFrag extends Fragment {
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
                             textViewParams2.setMargins(80, 5, 0, 0);
                             textView1111.setLayoutParams(textViewParams2);
-                            textView1111.setText("★"+rate);
+                            if(buyers <= 0 && rate <= 0){
+                                textView1111.setText("★0.0");
+                            }
+                            else{
+                                textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                            }
+
                             textView1111.setTextSize(14);
                             firstVerticalLayout.addView(textView1111);
 
@@ -322,7 +328,12 @@ public class DashBoardFrag extends Fragment {
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
                             textViewParams2.setMargins(80, 5, 0, 0);
                             textView1111.setLayoutParams(textViewParams2);
-                            textView1111.setText("★"+rate);
+                            if(buyers <= 0 && rate <= 0){
+                                textView1111.setText("★0.0");
+                            }
+                            else{
+                                textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                            }
                             textView1111.setTextSize(14);
                             firstVerticalLayout.addView(textView1111);
 
@@ -486,7 +497,12 @@ public class DashBoardFrag extends Fragment {
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
                                             textViewParams2.setMargins(80, 5, 0, 0);
                                             textView1111.setLayoutParams(textViewParams2);
-                                            textView1111.setText("★"+rate);
+                                            if(buyers <= 0 && rate <= 0){
+                                                textView1111.setText("★0.0");
+                                            }
+                                            else{
+                                                textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                            }
                                             textView1111.setTextSize(14);
                                             firstVerticalLayout.addView(textView1111);
 
@@ -583,7 +599,12 @@ public class DashBoardFrag extends Fragment {
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
                                             textViewParams2.setMargins(80, 5, 0, 0);
                                             textView1111.setLayoutParams(textViewParams2);
-                                            textView1111.setText("★"+rate);
+                                            if(buyers <= 0 && rate <= 0){
+                                                textView1111.setText("★0.0");
+                                            }
+                                            else{
+                                                textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                            }
                                             textView1111.setTextSize(14);
                                             firstVerticalLayout.addView(textView1111);
 
@@ -709,7 +730,12 @@ public class DashBoardFrag extends Fragment {
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
                                                 textViewParams2.setMargins(80, 5, 0, 0);
                                                 textView1111.setLayoutParams(textViewParams2);
-                                                textView1111.setText("★"+rate);
+                                                if(buyers <= 0 && rate <= 0){
+                                                    textView1111.setText("★0.0");
+                                                }
+                                                else{
+                                                    textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                                }
                                                 textView1111.setTextSize(14);
                                                 firstVerticalLayout.addView(textView1111);
 
@@ -804,7 +830,12 @@ public class DashBoardFrag extends Fragment {
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
                                                 textViewParams2.setMargins(80, 5, 0, 0);
                                                 textView1111.setLayoutParams(textViewParams2);
-                                                textView1111.setText("★"+rate);
+                                                if(buyers <= 0 && rate <= 0){
+                                                    textView1111.setText("★0.0");
+                                                }
+                                                else{
+                                                    textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                                }
                                                 textView1111.setTextSize(14);
                                                 firstVerticalLayout.addView(textView1111);
 
