@@ -461,6 +461,88 @@ public class BookViewMain extends AppCompatActivity {
                 finish();
             }
         });
+
+        ImageButton wishlist_button = findViewById(R.id.wishlist_button);
+        wishlist_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.execute(()->{
+                    Connection connection = null;
+                    try {
+                        // Load the JDBC driver
+                        Class.forName("com.mysql.jdbc.Driver");
+
+                        // Define the connection URL
+                        String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                        // Provide database credentials
+                        String username = "";
+                        String password = "";
+
+                        // Establish the database connection
+                        connection = DriverManager.getConnection(url, username, password);
+                        System.out.println("Connected...");
+
+                        String selectSql = "SELECT * FROM savedbooks WHERE bookid = ? AND userid = ?";
+                        PreparedStatement selectStmt = connection.prepareStatement(selectSql);
+                        selectStmt.setInt(1, Integer.parseInt(bookid));
+                        selectStmt.setInt(2, Integer.parseInt(userid));
+                        ResultSet rs = selectStmt.executeQuery();
+
+                        double currate = 0;
+                        while (rs.next()) {
+                            currate++;
+                        }
+                        if(currate>0){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Context context = getApplicationContext();
+                                    int duration = Toast.LENGTH_LONG;
+                                    Toast toast = Toast.makeText(context, "Book Already Saved", duration);
+                                    toast.show();
+                                }
+                            });
+                        }
+                        else{
+                            String sql2 = "INSERT INTO savedbooks (bookid,userid) VALUES (?,?)";
+                            PreparedStatement pstmt3 = connection.prepareStatement(sql2);
+                            pstmt3.setInt(1,Integer.parseInt(bookid));
+                            pstmt3.setInt(2,Integer.parseInt(userid));
+
+                            pstmt3.executeUpdate();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Context context = getApplicationContext();
+                                    int duration = Toast.LENGTH_LONG;
+                                    Toast toast = Toast.makeText(context, "Book Saved", duration);
+                                    toast.show();
+
+                                }
+                            });
+                            pstmt3.close();
+
+                        }
+
+                        // Close the select statement
+                        selectStmt.close();
+
+                        // Increment the buyers value
+
+
+                        // Close the database connection
+                        connection.close();
+
+                    } catch (Exception e) {
+                        System.out.println("Errorme"+e);
+                    }
+
+                });
+            }
+        });
     }
 
     @Override

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -193,6 +195,27 @@ public class DashBoard extends AppCompatActivity {
                 transaction.setReorderingAllowed(true);
 
                 WalletView fragment = new WalletView();
+                fragment.setArguments(bundle);
+
+                transaction.replace(R.id.fragmentContainerView, fragment);
+
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        ImageButton LibraryBut = (ImageButton) findViewById(R.id.LibraryBut);
+        LibraryBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.setReorderingAllowed(true);
+
+                library_page fragment = new library_page();
                 fragment.setArguments(bundle);
 
                 transaction.replace(R.id.fragmentContainerView, fragment);

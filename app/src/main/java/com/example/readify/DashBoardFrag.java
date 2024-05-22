@@ -20,11 +20,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -888,5 +892,843 @@ public class DashBoardFrag extends Fragment {
                 }
             });
         });
+
+        Spinner mySpinner = view.findViewById(R.id.mySpinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.dropdown_items, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        mySpinner.setAdapter(adapter);
+
+        // Set a listener for spinner item selection
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected item
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if(selectedItem.equals("horror") || selectedItem.equals("mystery") || selectedItem.equals("romance")
+                || selectedItem.equals("fantasy") || selectedItem.equals("others")){
+                    Toast.makeText(getActivity(), "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
+
+                    LinearLayout parentLinearLayout = getView().findViewById(R.id.userViewBooks);
+                    parentLinearLayout.removeAllViews();
+                    LinearLayout firstHorizontalLayout1 = new LinearLayout(requireContext());
+                    firstHorizontalLayout1.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    firstHorizontalLayout1.setOrientation(LinearLayout.HORIZONTAL);
+                    firstHorizontalLayout1.setPadding(0, 20, 0, 20);
+                    parentLinearLayout.addView(firstHorizontalLayout1);
+
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(()-> {
+                        Connection connection = null;
+                        try {
+                            // Load the JDBC driver
+                            Class.forName("com.mysql.jdbc.Driver");
+                            // Define the connection URL
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                            // Provide database credentials
+                            String username = "";
+                            String password = "";
+
+                            // Establish the database connection
+                            connection = DriverManager.getConnection(url, username, password);
+                            System.out.println("Connected...");
+
+                            PreparedStatement preparedStatement2 = connection.prepareStatement("SELECT * FROM books");
+                            ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+                            while(resultSet2.next()) {
+                                int bookid = resultSet2.getInt("bookid");
+                                Uri cover = Uri.parse(resultSet2.getString("cover"));
+                                String title = resultSet2.getString("title");
+                                double price = resultSet2.getDouble("price");
+                                double rate = resultSet2.getDouble("rate");
+                                String aboutbook = resultSet2.getString("aboutbook");
+                                String aboutauthor = resultSet2.getString("aboutauthor");
+                                int buyers = resultSet2.getInt("buyers");
+                                Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
+                                String authorOfbook = resultSet2.getString("authorname");
+
+                                PreparedStatement prepare1 = connection.prepareStatement("SELECT * FROM " + selectedItem + " WHERE bookid = ?");
+                                prepare1.setInt(1, bookid);
+                                ResultSet resprep1 = prepare1.executeQuery();
+
+                                int countin = 0;
+                                while (resprep1.next()) {
+                                    countin++;
+                                }
+
+                                if (countin == 0) {
+                                    continue;
+                                }
+
+                                Handler mainHandler = new Handler(Looper.getMainLooper());
+                                mainHandler.post(() -> {
+                                    if(((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount()-1)).getChildCount() >=2){
+                                        LinearLayout firstHorizontalLayout = new LinearLayout(requireContext());
+                                        firstHorizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                                        firstHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                        firstHorizontalLayout.setPadding(0, 20, 0, 20);
+                                        parentLinearLayout.addView(firstHorizontalLayout);
+
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        firstHorizontalLayout.addView(firstVerticalLayout);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+                                        // Get the existing drawable resource
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
+                                        firstVerticalLayout.setBackgroundColor(Color.WHITE);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
+
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        catch (Exception e){
+                            System.out.println("Errorme: "+e.getMessage());
+                        }
+                    });
+                }
+                else if(selectedItem.equals("All")){
+                    LinearLayout parentLinearLayout = getView().findViewById(R.id.userViewBooks);
+                    parentLinearLayout.removeAllViews();
+                    LinearLayout firstHorizontalLayout1 = new LinearLayout(requireContext());
+                    firstHorizontalLayout1.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    firstHorizontalLayout1.setOrientation(LinearLayout.HORIZONTAL);
+                    firstHorizontalLayout1.setPadding(0, 20, 0, 20);
+                    parentLinearLayout.addView(firstHorizontalLayout1);
+
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(()-> {
+                        Connection connection = null;
+                        try {
+                            // Load the JDBC driver
+                            Class.forName("com.mysql.jdbc.Driver");
+                            // Define the connection URL
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                            // Provide database credentials
+                            String username = "";
+                            String password = "";
+
+                            // Establish the database connection
+                            connection = DriverManager.getConnection(url, username, password);
+                            System.out.println("Connected...");
+
+                            PreparedStatement preparedStatement2 = connection.prepareStatement("SELECT * FROM books");
+                            ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+                            while(resultSet2.next()) {
+                                int bookid = resultSet2.getInt("bookid");
+                                Uri cover = Uri.parse(resultSet2.getString("cover"));
+                                String title = resultSet2.getString("title");
+                                double price = resultSet2.getDouble("price");
+                                double rate = resultSet2.getDouble("rate");
+                                String aboutbook = resultSet2.getString("aboutbook");
+                                String aboutauthor = resultSet2.getString("aboutauthor");
+                                int buyers = resultSet2.getInt("buyers");
+                                Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
+                                String authorOfbook = resultSet2.getString("authorname");
+
+
+                                Handler mainHandler = new Handler(Looper.getMainLooper());
+                                mainHandler.post(() -> {
+                                    if(((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount()-1)).getChildCount() >=2){
+                                        LinearLayout firstHorizontalLayout = new LinearLayout(requireContext());
+                                        firstHorizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                                        firstHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                        firstHorizontalLayout.setPadding(0, 20, 0, 20);
+                                        parentLinearLayout.addView(firstHorizontalLayout);
+
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        firstHorizontalLayout.addView(firstVerticalLayout);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+                                        // Get the existing drawable resource
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
+                                        firstVerticalLayout.setBackgroundColor(Color.WHITE);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
+
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        catch (Exception e){
+                            System.out.println("Errorme: "+e.getMessage());
+                        }
+                    });
+                }
+
+                else if(selectedItem.equals("Priced Books") || selectedItem.equals("Free Books")){
+                    LinearLayout parentLinearLayout = getView().findViewById(R.id.userViewBooks);
+                    parentLinearLayout.removeAllViews();
+                    LinearLayout firstHorizontalLayout1 = new LinearLayout(requireContext());
+                    firstHorizontalLayout1.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    firstHorizontalLayout1.setOrientation(LinearLayout.HORIZONTAL);
+                    firstHorizontalLayout1.setPadding(0, 20, 0, 20);
+                    parentLinearLayout.addView(firstHorizontalLayout1);
+
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(()-> {
+                        Connection connection = null;
+                        try {
+                            // Load the JDBC driver
+                            Class.forName("com.mysql.jdbc.Driver");
+                            // Define the connection URL
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+
+                            // Provide database credentials
+                            String username = "";
+                            String password = "";
+
+                            // Establish the database connection
+                            connection = DriverManager.getConnection(url, username, password);
+                            System.out.println("Connected...");
+                            PreparedStatement preparedStatement2 = null;
+                            if(selectedItem.equals("Priced Books")){
+                                preparedStatement2 = connection.prepareStatement("SELECT * FROM books WHERE price > 0");
+                            }
+                            else{
+                                preparedStatement2 = connection.prepareStatement("SELECT * FROM books WHERE price = 0");
+                            }
+
+                            ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+                            while(resultSet2.next()) {
+                                int bookid = resultSet2.getInt("bookid");
+                                Uri cover = Uri.parse(resultSet2.getString("cover"));
+                                String title = resultSet2.getString("title");
+                                double price = resultSet2.getDouble("price");
+                                double rate = resultSet2.getDouble("rate");
+                                String aboutbook = resultSet2.getString("aboutbook");
+                                String aboutauthor = resultSet2.getString("aboutauthor");
+                                int buyers = resultSet2.getInt("buyers");
+                                Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
+                                String authorOfbook = resultSet2.getString("authorname");
+
+
+                                Handler mainHandler = new Handler(Looper.getMainLooper());
+                                mainHandler.post(() -> {
+                                    if(((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount()-1)).getChildCount() >=2){
+                                        LinearLayout firstHorizontalLayout = new LinearLayout(requireContext());
+                                        firstHorizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                                        firstHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                        firstHorizontalLayout.setPadding(0, 20, 0, 20);
+                                        parentLinearLayout.addView(firstHorizontalLayout);
+
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        firstHorizontalLayout.addView(firstVerticalLayout);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+                                        // Get the existing drawable resource
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        LinearLayout firstVerticalLayout = new LinearLayout(requireContext());
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.MATCH_PARENT);
+                                        params.setMargins(15, 0, 15, 0);
+                                        firstVerticalLayout.setLayoutParams(params);
+                                        firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
+                                        ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
+                                        firstVerticalLayout.setBackgroundColor(Color.WHITE);
+                                        firstVerticalLayout.setPadding(20,20,20,20);
+                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
+                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
+
+                                        Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
+
+// Set the background drawable for your LinearLayout
+                                        firstVerticalLayout.setBackground(existingDrawable);
+
+
+// Create and add ImageView to the first vertical LinearLayout
+                                        ImageView imageView1 = new ImageView(requireContext());
+                                        LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
+                                                600, 700);
+                                        imageView1.setLayoutParams(imageViewParams);
+                                        imageView1.setImageURI(cover);
+                                        firstVerticalLayout.addView(imageView1);
+
+// Create and add TextView to the first vertical LinearLayout
+                                        TextView textView11 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textView11.setLayoutParams(textViewParams);
+                                        textView11.setText(title+"");
+                                        textView11.setTextSize(17);
+                                        textView11.setTypeface(null, Typeface.BOLD);
+                                        firstVerticalLayout.addView(textView11);
+
+
+                                        TextView textView111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textView111.setLayoutParams(textViewParams1);
+                                        textView111.setText(String.format("$%.2f",price));
+                                        textView111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView111);
+
+
+                                        TextView textView1111 = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textView1111.setLayoutParams(textViewParams2);
+                                        if(buyers <= 0 && rate <= 0){
+                                            textView1111.setText("★0.0");
+                                        }
+                                        else{
+                                            textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
+                                        }
+                                        textView1111.setTextSize(14);
+                                        firstVerticalLayout.addView(textView1111);
+
+
+                                        TextView textViewID = new TextView(requireContext());
+                                        LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        textViewParamsID.setMargins(0, 0, 0, 0);
+                                        textViewID.setLayoutParams(textViewParams);
+                                        textViewID.setText(bookid+"");
+                                        textViewID.setTextSize(2);
+                                        textViewID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        firstVerticalLayout.addView(textViewID);
+
+                                        firstVerticalLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getActivity(), BookViewMain.class);
+                                                intent.putExtra("userid",uid+"");
+                                                intent.putExtra("name",authorOfbook+"");
+                                                intent.putExtra("bookid",bookid+"");
+                                                intent.putExtra("title",title);
+                                                intent.putExtra("aboutbook",aboutbook);
+                                                intent.putExtra("aboutauthor",aboutauthor);
+                                                intent.putExtra("price",price+"");
+                                                intent.putExtra("rate",rate+"");
+                                                intent.putExtra("cover",cover+"");
+                                                intent.putExtra("buyers",buyers+"");
+                                                intent.putExtra("bookpdf",bookpdf+"");
+                                                intent.putExtra("wallet",walletme+"");
+                                                intent.putExtra("buyername",email+"");
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        catch (Exception e){
+                            System.out.println("Errorme: "+e.getMessage());
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 }
