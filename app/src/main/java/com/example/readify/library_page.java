@@ -195,6 +195,7 @@ public class library_page extends Fragment {
                                 );
                                 imageView4.setLayoutParams(imageView4Params);
                                 imageView4.setImageURI(cover);
+                                imageView4.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
                                 // Create the TextView

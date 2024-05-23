@@ -692,6 +692,7 @@ public class EditBook extends Fragment {
                             // Update UI here
                             ImageView coverimghold = (ImageView) getView().findViewById(R.id.CoverHolder);
                             coverimghold.setImageURI(imageuri);
+                            coverimghold.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         }
                     });
 

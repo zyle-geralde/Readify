@@ -198,6 +198,7 @@ public class DashBoardFrag extends Fragment {
                                     600, 700);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
+                            imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -300,6 +301,7 @@ public class DashBoardFrag extends Fragment {
                                     600, 700);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
+                            imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -469,6 +471,7 @@ public class DashBoardFrag extends Fragment {
                                                     600, 700);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
+                                            imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                             firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -571,6 +574,7 @@ public class DashBoardFrag extends Fragment {
                                                     600, 700);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
+                                            imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                             firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -701,6 +705,7 @@ public class DashBoardFrag extends Fragment {
                                                         600, 700);
                                                 imageView1.setLayoutParams(imageViewParams);
                                                 imageView1.setImageURI(cover);
+                                                imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                                 firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -802,6 +807,7 @@ public class DashBoardFrag extends Fragment {
                                                         600, 700);
                                                 imageView1.setLayoutParams(imageViewParams);
                                                 imageView1.setImageURI(cover);
+                                                imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                                 firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1006,6 +1012,7 @@ public class DashBoardFrag extends Fragment {
                                                 600, 700);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1107,6 +1114,7 @@ public class DashBoardFrag extends Fragment {
                                                 600, 700);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1268,6 +1276,7 @@ public class DashBoardFrag extends Fragment {
                                                 600, 700);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1369,6 +1378,7 @@ public class DashBoardFrag extends Fragment {
                                                 600, 700);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1537,6 +1547,7 @@ public class DashBoardFrag extends Fragment {
                                                 600, 700);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout

@@ -85,6 +85,7 @@ public class BookViewMain extends AppCompatActivity {
         book_author.setText(name);
         ImageView book_cover_photo = (ImageView) findViewById(R.id.book_cover_photo);
         book_cover_photo.setImageURI(Uri.parse(cover));
+        book_cover_photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
         TextView book_rating = (TextView) findViewById(R.id.book_rating);
         if(Integer.parseInt(buyers) <= 0 && Double.parseDouble(rate) <= 0){
             book_rating.setText("★0.0");
