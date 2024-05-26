@@ -1,5 +1,7 @@
 package com.example.readify;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.DocumentsContract;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -49,6 +53,7 @@ public class DashBoardFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -136,11 +141,11 @@ public class DashBoardFrag extends Fragment {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                 // Provide database credentials
-                String username = "";
-                String password = "";
+                String username = "sql12709204";
+                String password = "aHVxXZQU8u";
 
                 // Establish the database connection
                 connection = DriverManager.getConnection(url, username, password);
@@ -161,6 +166,10 @@ public class DashBoardFrag extends Fragment {
                     int buyers = resultSet.getInt("buyers");
                     Uri bookpdf = Uri.parse(resultSet.getString("bookpdf"));
                     String authorOfbook = resultSet.getString("authorname");
+                    // Take persistable URI permission
+                    final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                    getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                    getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -178,7 +187,7 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                            params.setMargins(15, 0, 15, 0);
+                            params.setMargins(3, 0, 3, 0);
                             firstVerticalLayout.setLayoutParams(params);
                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                             firstHorizontalLayout.addView(firstVerticalLayout);
@@ -195,7 +204,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                             ImageView imageView1 = new ImageView(requireContext());
                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                    600, 700);
+                                    300, 400);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -206,10 +215,10 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams.setMargins(80, 30, 0, 0);
+                            textViewParams.setMargins(10, 30, 0, 0);
                             textView11.setLayoutParams(textViewParams);
                             textView11.setText(title+"");
-                            textView11.setTextSize(17);
+                            textView11.setTextSize(14);
                             textView11.setTypeface(null, Typeface.BOLD);
                             firstVerticalLayout.addView(textView11);
 
@@ -218,10 +227,10 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams1.setMargins(80, 5, 0, 0);
+                            textViewParams1.setMargins(10, 5, 0, 0);
                             textView111.setLayoutParams(textViewParams1);
                             textView111.setText(String.format("$%.2f",price));
-                            textView111.setTextSize(14);
+                            textView111.setTextSize(12);
                             firstVerticalLayout.addView(textView111);
 
 
@@ -229,7 +238,7 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams2.setMargins(80, 5, 0, 0);
+                            textViewParams2.setMargins(10, 5, 0, 0);
                             textView1111.setLayoutParams(textViewParams2);
                             if(buyers <= 0 && rate <= 0){
                                 textView1111.setText("★0.0");
@@ -279,7 +288,7 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                            params.setMargins(15, 0, 15, 0);
+                            params.setMargins(3, 0, 3, 0);
                             firstVerticalLayout.setLayoutParams(params);
                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                             ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -298,7 +307,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                             ImageView imageView1 = new ImageView(requireContext());
                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                    600, 700);
+                                    300, 400);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -309,10 +318,10 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams.setMargins(80, 30, 0, 0);
+                            textViewParams.setMargins(10, 30, 0, 0);
                             textView11.setLayoutParams(textViewParams);
                             textView11.setText(title+"");
-                            textView11.setTextSize(17);
+                            textView11.setTextSize(14);
                             textView11.setTypeface(null, Typeface.BOLD);
                             firstVerticalLayout.addView(textView11);
 
@@ -321,10 +330,10 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams1.setMargins(80, 5, 0, 0);
+                            textViewParams1.setMargins(10, 5, 0, 0);
                             textView111.setLayoutParams(textViewParams1);
                             textView111.setText(String.format("$%.2f",price));
-                            textView111.setTextSize(14);
+                            textView111.setTextSize(12);
                             firstVerticalLayout.addView(textView111);
 
 
@@ -332,7 +341,7 @@ public class DashBoardFrag extends Fragment {
                             LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                            textViewParams2.setMargins(80, 5, 0, 0);
+                            textViewParams2.setMargins(10, 5, 0, 0);
                             textView1111.setLayoutParams(textViewParams2);
                             if(buyers <= 0 && rate <= 0){
                                 textView1111.setText("★0.0");
@@ -340,7 +349,7 @@ public class DashBoardFrag extends Fragment {
                             else{
                                 textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                             }
-                            textView1111.setTextSize(14);
+                            textView1111.setTextSize(12);
                             firstVerticalLayout.addView(textView1111);
 
 
@@ -408,11 +417,11 @@ public class DashBoardFrag extends Fragment {
                                 Class.forName("com.mysql.jdbc.Driver");
 
                                 // Define the connection URL
-                                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                                 // Provide database credentials
-                                String username = "";
-                                String password = "";
+                                String username = "sql12709204";
+                                String password = "aHVxXZQU8u";
 
                                 // Establish the database connection
                                 connection = DriverManager.getConnection(url, username, password);
@@ -435,6 +444,9 @@ public class DashBoardFrag extends Fragment {
                                     int buyers = resultSet.getInt("buyers");
                                     Uri bookpdf = Uri.parse(resultSet.getString("bookpdf"));
                                     String authorOfbook = resultSet.getString("authorname");
+                                    final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                    getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                                    getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
                                     Handler mainHandler = new Handler(Looper.getMainLooper());
                                     mainHandler.post(() -> {
@@ -451,7 +463,7 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                                            params.setMargins(15, 0, 15, 0);
+                                            params.setMargins(3, 0, 3, 0);
                                             firstVerticalLayout.setLayoutParams(params);
                                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                             firstHorizontalLayout.addView(firstVerticalLayout);
@@ -468,7 +480,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                             ImageView imageView1 = new ImageView(requireContext());
                                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                    600, 700);
+                                                    300, 400);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
                                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -479,10 +491,10 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams.setMargins(80, 30, 0, 0);
+                                            textViewParams.setMargins(10, 30, 0, 0);
                                             textView11.setLayoutParams(textViewParams);
                                             textView11.setText(title+"");
-                                            textView11.setTextSize(17);
+                                            textView11.setTextSize(14);
                                             textView11.setTypeface(null, Typeface.BOLD);
                                             firstVerticalLayout.addView(textView11);
 
@@ -491,10 +503,10 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams1.setMargins(80, 5, 0, 0);
+                                            textViewParams1.setMargins(10, 5, 0, 0);
                                             textView111.setLayoutParams(textViewParams1);
                                             textView111.setText(String.format("$%.2f",price));
-                                            textView111.setTextSize(14);
+                                            textView111.setTextSize(12);
                                             firstVerticalLayout.addView(textView111);
 
 
@@ -502,7 +514,7 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams2.setMargins(80, 5, 0, 0);
+                                            textViewParams2.setMargins(10, 5, 0, 0);
                                             textView1111.setLayoutParams(textViewParams2);
                                             if(buyers <= 0 && rate <= 0){
                                                 textView1111.setText("★0.0");
@@ -510,9 +522,9 @@ public class DashBoardFrag extends Fragment {
                                             else{
                                                 textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                             }
+
                                             textView1111.setTextSize(14);
                                             firstVerticalLayout.addView(textView1111);
-
 
 
                                             TextView textViewID = new TextView(requireContext());
@@ -552,7 +564,7 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                                            params.setMargins(15, 0, 15, 0);
+                                            params.setMargins(3, 0, 3, 0);
                                             firstVerticalLayout.setLayoutParams(params);
                                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                             ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -571,7 +583,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                             ImageView imageView1 = new ImageView(requireContext());
                                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                    600, 700);
+                                                    300, 400);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
                                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -582,10 +594,10 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams.setMargins(80, 30, 0, 0);
+                                            textViewParams.setMargins(10, 30, 0, 0);
                                             textView11.setLayoutParams(textViewParams);
                                             textView11.setText(title+"");
-                                            textView11.setTextSize(17);
+                                            textView11.setTextSize(14);
                                             textView11.setTypeface(null, Typeface.BOLD);
                                             firstVerticalLayout.addView(textView11);
 
@@ -594,10 +606,10 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams1.setMargins(80, 5, 0, 0);
+                                            textViewParams1.setMargins(10, 5, 0, 0);
                                             textView111.setLayoutParams(textViewParams1);
                                             textView111.setText(String.format("$%.2f",price));
-                                            textView111.setTextSize(14);
+                                            textView111.setTextSize(12);
                                             firstVerticalLayout.addView(textView111);
 
 
@@ -605,7 +617,7 @@ public class DashBoardFrag extends Fragment {
                                             LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                     LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            textViewParams2.setMargins(80, 5, 0, 0);
+                                            textViewParams2.setMargins(10, 5, 0, 0);
                                             textView1111.setLayoutParams(textViewParams2);
                                             if(buyers <= 0 && rate <= 0){
                                                 textView1111.setText("★0.0");
@@ -613,7 +625,7 @@ public class DashBoardFrag extends Fragment {
                                             else{
                                                 textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                             }
-                                            textView1111.setTextSize(14);
+                                            textView1111.setTextSize(12);
                                             firstVerticalLayout.addView(textView1111);
 
 
@@ -669,6 +681,9 @@ public class DashBoardFrag extends Fragment {
                                         int buyers = resultSet2.getInt("buyers");
                                         Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
                                         String authorOfbook = resultSet2.getString("authorname");
+                                        final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                        getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                                        getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
                                         Handler mainHandler = new Handler(Looper.getMainLooper());
                                         mainHandler.post(() -> {
@@ -685,7 +700,7 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                                         LinearLayout.LayoutParams.MATCH_PARENT);
-                                                params.setMargins(15, 0, 15, 0);
+                                                params.setMargins(3, 0, 3, 0);
                                                 firstVerticalLayout.setLayoutParams(params);
                                                 firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                                 firstHorizontalLayout.addView(firstVerticalLayout);
@@ -702,22 +717,21 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                                 ImageView imageView1 = new ImageView(requireContext());
                                                 LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                        600, 700);
+                                                        300, 400);
                                                 imageView1.setLayoutParams(imageViewParams);
                                                 imageView1.setImageURI(cover);
                                                 imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                                 firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
-
                                                 TextView textView11 = new TextView(requireContext());
                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams.setMargins(80, 30, 0, 0);
+                                                textViewParams.setMargins(10, 30, 0, 0);
                                                 textView11.setLayoutParams(textViewParams);
                                                 textView11.setText(title+"");
-                                                textView11.setTextSize(17);
+                                                textView11.setTextSize(14);
                                                 textView11.setTypeface(null, Typeface.BOLD);
                                                 firstVerticalLayout.addView(textView11);
 
@@ -726,10 +740,10 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams1.setMargins(80, 5, 0, 0);
+                                                textViewParams1.setMargins(10, 5, 0, 0);
                                                 textView111.setLayoutParams(textViewParams1);
                                                 textView111.setText(String.format("$%.2f",price));
-                                                textView111.setTextSize(14);
+                                                textView111.setTextSize(12);
                                                 firstVerticalLayout.addView(textView111);
 
 
@@ -737,7 +751,7 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams2.setMargins(80, 5, 0, 0);
+                                                textViewParams2.setMargins(10, 5, 0, 0);
                                                 textView1111.setLayoutParams(textViewParams2);
                                                 if(buyers <= 0 && rate <= 0){
                                                     textView1111.setText("★0.0");
@@ -745,8 +759,10 @@ public class DashBoardFrag extends Fragment {
                                                 else{
                                                     textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                                 }
+
                                                 textView1111.setTextSize(14);
                                                 firstVerticalLayout.addView(textView1111);
+
 
                                                 TextView textViewID = new TextView(requireContext());
                                                 LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
@@ -785,7 +801,7 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                                         LinearLayout.LayoutParams.MATCH_PARENT);
-                                                params.setMargins(15, 0, 15, 0);
+                                                params.setMargins(3, 0, 3, 0);
                                                 firstVerticalLayout.setLayoutParams(params);
                                                 firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                                 ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -804,7 +820,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                                 ImageView imageView1 = new ImageView(requireContext());
                                                 LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                        600, 700);
+                                                        300, 400);
                                                 imageView1.setLayoutParams(imageViewParams);
                                                 imageView1.setImageURI(cover);
                                                 imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -815,10 +831,10 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams.setMargins(80, 30, 0, 0);
+                                                textViewParams.setMargins(10, 30, 0, 0);
                                                 textView11.setLayoutParams(textViewParams);
                                                 textView11.setText(title+"");
-                                                textView11.setTextSize(17);
+                                                textView11.setTextSize(14);
                                                 textView11.setTypeface(null, Typeface.BOLD);
                                                 firstVerticalLayout.addView(textView11);
 
@@ -827,10 +843,10 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams1.setMargins(80, 5, 0, 0);
+                                                textViewParams1.setMargins(10, 5, 0, 0);
                                                 textView111.setLayoutParams(textViewParams1);
                                                 textView111.setText(String.format("$%.2f",price));
-                                                textView111.setTextSize(14);
+                                                textView111.setTextSize(12);
                                                 firstVerticalLayout.addView(textView111);
 
 
@@ -838,7 +854,7 @@ public class DashBoardFrag extends Fragment {
                                                 LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                textViewParams2.setMargins(80, 5, 0, 0);
+                                                textViewParams2.setMargins(10, 5, 0, 0);
                                                 textView1111.setLayoutParams(textViewParams2);
                                                 if(buyers <= 0 && rate <= 0){
                                                     textView1111.setText("★0.0");
@@ -846,7 +862,7 @@ public class DashBoardFrag extends Fragment {
                                                 else{
                                                     textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                                 }
-                                                textView1111.setTextSize(14);
+                                                textView1111.setTextSize(12);
                                                 firstVerticalLayout.addView(textView1111);
 
 
@@ -939,11 +955,12 @@ public class DashBoardFrag extends Fragment {
                             // Load the JDBC driver
                             Class.forName("com.mysql.jdbc.Driver");
                             // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                            // Define the connection URL
+                            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                             // Provide database credentials
-                            String username = "";
-                            String password = "";
+                            String username = "sql12709204";
+                            String password = "aHVxXZQU8u";
 
                             // Establish the database connection
                             connection = DriverManager.getConnection(url, username, password);
@@ -963,6 +980,9 @@ public class DashBoardFrag extends Fragment {
                                 int buyers = resultSet2.getInt("buyers");
                                 Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
                                 String authorOfbook = resultSet2.getString("authorname");
+                                final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                                getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
                                 PreparedStatement prepare1 = connection.prepareStatement("SELECT * FROM " + selectedItem + " WHERE bookid = ?");
                                 prepare1.setInt(1, bookid);
@@ -992,7 +1012,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         firstHorizontalLayout.addView(firstVerticalLayout);
@@ -1009,22 +1029,21 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
-
                                         TextView textView11 = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1033,10 +1052,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1044,7 +1063,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1052,8 +1071,10 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
+
                                         textView1111.setTextSize(14);
                                         firstVerticalLayout.addView(textView1111);
+
 
                                         TextView textViewID = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
@@ -1092,7 +1113,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -1111,7 +1132,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -1122,10 +1143,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1134,10 +1155,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1145,7 +1166,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1153,7 +1174,7 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
-                                        textView1111.setTextSize(14);
+                                        textView1111.setTextSize(12);
                                         firstVerticalLayout.addView(textView1111);
 
 
@@ -1215,11 +1236,12 @@ public class DashBoardFrag extends Fragment {
                             // Load the JDBC driver
                             Class.forName("com.mysql.jdbc.Driver");
                             // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                            // Define the connection URL
+                            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                             // Provide database credentials
-                            String username = "";
-                            String password = "";
+                            String username = "sql12709204";
+                            String password = "aHVxXZQU8u";
 
                             // Establish the database connection
                             connection = DriverManager.getConnection(url, username, password);
@@ -1239,6 +1261,9 @@ public class DashBoardFrag extends Fragment {
                                 int buyers = resultSet2.getInt("buyers");
                                 Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
                                 String authorOfbook = resultSet2.getString("authorname");
+                                final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                                getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
 
                                 Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -1256,7 +1281,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         firstHorizontalLayout.addView(firstVerticalLayout);
@@ -1273,22 +1298,21 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
-
                                         TextView textView11 = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1297,10 +1321,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1308,7 +1332,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1316,8 +1340,10 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
+
                                         textView1111.setTextSize(14);
                                         firstVerticalLayout.addView(textView1111);
+
 
                                         TextView textViewID = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
@@ -1356,7 +1382,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -1375,7 +1401,7 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -1386,10 +1412,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1398,10 +1424,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1409,7 +1435,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1417,7 +1443,7 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
-                                        textView1111.setTextSize(14);
+                                        textView1111.setTextSize(12);
                                         firstVerticalLayout.addView(textView1111);
 
 
@@ -1480,11 +1506,11 @@ public class DashBoardFrag extends Fragment {
                             // Load the JDBC driver
                             Class.forName("com.mysql.jdbc.Driver");
                             // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                             // Provide database credentials
-                            String username = "";
-                            String password = "";
+                            String username = "sql12709204";
+                            String password = "aHVxXZQU8u";
 
                             // Establish the database connection
                             connection = DriverManager.getConnection(url, username, password);
@@ -1510,6 +1536,9 @@ public class DashBoardFrag extends Fragment {
                                 int buyers = resultSet2.getInt("buyers");
                                 Uri bookpdf = Uri.parse(resultSet2.getString("bookpdf"));
                                 String authorOfbook = resultSet2.getString("authorname");
+                                final int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                getActivity().getContentResolver().takePersistableUriPermission(bookpdf, flags);
+                                getActivity().getContentResolver().takePersistableUriPermission(cover, flags);
 
 
                                 Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -1527,7 +1556,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         firstHorizontalLayout.addView(firstVerticalLayout);
@@ -1544,22 +1573,21 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
-
                                         TextView textView11 = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1568,10 +1596,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1579,7 +1607,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1587,8 +1615,10 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
+
                                         textView1111.setTextSize(14);
                                         firstVerticalLayout.addView(textView1111);
+
 
                                         TextView textViewID = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParamsID = new LinearLayout.LayoutParams(
@@ -1627,7 +1657,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
@@ -1646,9 +1676,10 @@ public class DashBoardFrag extends Fragment {
 // Create and add ImageView to the first vertical LinearLayout
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
+                                        imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
 // Create and add TextView to the first vertical LinearLayout
@@ -1656,10 +1687,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams.setMargins(80, 30, 0, 0);
+                                        textViewParams.setMargins(10, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
 
@@ -1668,10 +1699,10 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams1 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams1.setMargins(80, 5, 0, 0);
+                                        textViewParams1.setMargins(10, 5, 0, 0);
                                         textView111.setLayoutParams(textViewParams1);
                                         textView111.setText(String.format("$%.2f",price));
-                                        textView111.setTextSize(14);
+                                        textView111.setTextSize(12);
                                         firstVerticalLayout.addView(textView111);
 
 
@@ -1679,7 +1710,7 @@ public class DashBoardFrag extends Fragment {
                                         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        textViewParams2.setMargins(80, 5, 0, 0);
+                                        textViewParams2.setMargins(10, 5, 0, 0);
                                         textView1111.setLayoutParams(textViewParams2);
                                         if(buyers <= 0 && rate <= 0){
                                             textView1111.setText("★0.0");
@@ -1687,7 +1718,7 @@ public class DashBoardFrag extends Fragment {
                                         else{
                                             textView1111.setText(String.format("★%.1f",(rate/(double)buyers)));
                                         }
-                                        textView1111.setTextSize(14);
+                                        textView1111.setTextSize(12);
                                         firstVerticalLayout.addView(textView1111);
 
 
@@ -1738,6 +1769,14 @@ public class DashBoardFrag extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        ImageButton LogOutButton = (ImageButton) view.findViewById(R.id.LogOutButton);
+        LogOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
             }
         });
 

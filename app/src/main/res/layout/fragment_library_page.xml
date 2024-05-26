@@ -62,9 +62,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="480px"
                         android:layout_height="480px"
-                        android:layout_weight="0"
-                        android:background="@drawable/philosophy"
-                        app:srcCompat="@drawable/philosophy" />
+                        android:layout_weight="0" />
 
                     <TextView
                         android:id="@+id/textView21"
@@ -72,7 +70,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="0"
-                        android:text="dfjahsdjkfhajksdhfkjsahdfjkahsdfkjhasjkdfhaskjdfaaaaaaaaaaaaakkkkkkkkkkkkkkkkkkkkkkkeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrmmmmmmmmmmmmmmmmbbbbbbbbbbbbbbbgjasdf"
                         android:textSize="45px"
                         android:textStyle="bold" />
 

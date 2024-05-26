@@ -130,11 +130,11 @@ public class EditBook extends Fragment {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                 // Provide database credentials
-                String username = "";
-                String password = "";
+                String username = "sql12709204";
+                String password = "aHVxXZQU8u";
 
                 // Establish the database connection
                 connection = DriverManager.getConnection(url, username, password);
@@ -389,11 +389,11 @@ public class EditBook extends Fragment {
                                     Class.forName("com.mysql.jdbc.Driver");
 
                                     // Define the connection URL
-                                    String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                                    String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                                     // Provide database credentials
-                                    String username = "";
-                                    String password = "";
+                                    String username = "sql12709204";
+                                    String password = "aHVxXZQU8u";
 
                                     // Establish the database connection
                                     connection = DriverManager.getConnection(url, username, password);
@@ -591,11 +591,11 @@ public class EditBook extends Fragment {
                         Class.forName("com.mysql.jdbc.Driver");
 
                         // Define the connection URL
-                        String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                        String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                         // Provide database credentials
-                        String username = "";
-                        String password = "";
+                        String username = "sql12709204";
+                        String password = "aHVxXZQU8u";
 
                         // Establish the database connection
                         connection = DriverManager.getConnection(url, username, password);

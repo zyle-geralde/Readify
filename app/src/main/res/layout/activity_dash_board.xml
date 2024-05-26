@@ -16,128 +16,139 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="720dp"
-            android:background="#F6E8DD"
-            android:orientation="vertical">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView"
-                android:name="com.example.readify.DashBoardFrag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#F6E8DD"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentContainerView"
+                    android:name="com.example.readify.DashBoardFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10px"
+                    android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/HomeButt"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
-                        android:background="@drawable/home"
-                        app:srcCompat="@drawable/home" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
-                        android:text="Home"
-                        android:textAlignment="center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/LibraryBut"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
                         android:layout_weight="1"
-                        android:background="@drawable/book__1_"
-                        app:srcCompat="@drawable/book__1_" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
+                        <ImageButton
+                            android:id="@+id/HomeButt"
+                            android:layout_width="60px"
+                            android:layout_height="60px"
+                            android:background="@drawable/home"
+                            app:srcCompat="@drawable/home" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20px"
+                            android:text="Home"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
-                        android:text="Library"
-                        android:textAlignment="center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/WalletBut"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
-                        android:background="@drawable/wallet"
-                        app:srcCompat="@drawable/wallet" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
-                        android:text="Wallet"
-                        android:textAlignment="center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/AuthorView"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
                         android:layout_weight="1"
-                        android:background="@drawable/writer__2_" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
+                        <ImageButton
+                            android:id="@+id/LibraryBut"
+                            android:layout_width="60px"
+                            android:layout_height="60px"
+                            android:layout_weight="1"
+                            android:background="@drawable/book__1_"
+                            app:srcCompat="@drawable/book__1_" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20px"
+                            android:text="Library"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
                         android:layout_weight="1"
-                        android:text="Author"
-                        android:textAlignment="center" />
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/WalletBut"
+                            android:layout_width="60px"
+                            android:layout_height="60px"
+                            android:background="@drawable/wallet"
+                            app:srcCompat="@drawable/wallet" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20px"
+                            android:text="Wallet"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/AuthorView"
+                            android:layout_width="60px"
+                            android:layout_height="60px"
+                            android:layout_weight="1"
+                            android:background="@drawable/writer__2_" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20px"
+                            android:layout_weight="1"
+                            android:text="Author"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -35,6 +36,9 @@ import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 public class BookViewMain extends AppCompatActivity {
     Button preview, buy, write_review;
     ImageButton to_reviews;
@@ -46,9 +50,11 @@ public class BookViewMain extends AppCompatActivity {
     String bookpdf;
     String buyers;
 
+    String name;
+
     String rate;
-    private static final int PERMISSION_REQUEST_CODE = 1;
-    private static final int PICK_PDF_REQUEST = 2;
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final int PICK_PDF_REQUEST = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +67,7 @@ public class BookViewMain extends AppCompatActivity {
         Intent intent = getIntent();
         userid = intent.getStringExtra("userid");
         String bookid  = intent.getStringExtra("bookid");
-        String name  = intent.getStringExtra("name");
+        name  = intent.getStringExtra("name");
         String title = intent.getStringExtra("title");
         String aboutbook = intent.getStringExtra("aboutbook");
         String aboutauthor = intent.getStringExtra("aboutauthor");
@@ -122,29 +128,29 @@ public class BookViewMain extends AppCompatActivity {
         executorService.execute(()->{
             Connection connection = null;
             try {
-                // Load the JDBC driver
+
                 Class.forName("com.mysql.jdbc.Driver");
 
-                // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
 
-                // Provide database credentials
-                String username = "";
-                String password = "";
+                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
-                // Establish the database connection
+
+                String username = "sql12709204";
+                String password = "aHVxXZQU8u";
+
+
                 connection = DriverManager.getConnection(url, username, password);
                 System.out.println("Connected...");
 
-                // SQL statement to insert the URI into the database
+
                 String sqlme= "SELECT * FROM purchasedbooks WHERE userid = ? AND bookid = ?";
 
-                // Create a prepared statement
+
                 PreparedStatement pstmtme = connection.prepareStatement(sqlme);
                 pstmtme.setInt(1,Integer.parseInt(userid));
                 pstmtme.setInt(2,Integer.parseInt(bookid));
 
-                // Execute the statement
+
                 ResultSet res = pstmtme.executeQuery();
                 int countme = 0;
                 while(res.next()){
@@ -194,28 +200,28 @@ public class BookViewMain extends AppCompatActivity {
                     executorService.execute(()->{
                         Connection connection = null;
                         try {
-                            // Load the JDBC driver
+
                             Class.forName("com.mysql.jdbc.Driver");
 
-                            // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
 
-                            // Provide database credentials
-                            String username = "";
-                            String password = "";
+                            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
-                            // Establish the database connection
+
+                            String username = "sql12709204";
+                            String password = "aHVxXZQU8u";
+
+
                             connection = DriverManager.getConnection(url, username, password);
                             System.out.println("Connected...");
 
-                            // SQL statement to insert the URI into the database
+
                             String sql = "SELECT * FROM users WHERE UserId = ?";
 
-                            // Create a prepared statement
+
                             PreparedStatement pstmt = connection.prepareStatement(sql);
                             pstmt.setInt(1,Integer.parseInt(userid));
 
-                            // Execute the statement
+
                             ResultSet res = pstmt.executeQuery();
                             double walletme = 0;
                             while(res.next()){
@@ -239,14 +245,47 @@ public class BookViewMain extends AppCompatActivity {
                                 String fspec = String.format("%.2f",newbal);
                                 double newbal2 = Double.parseDouble(fspec);
 
-                                // Create a prepared statement
+
                                 PreparedStatement pstmt1 = connection.prepareStatement(sql1);
                                 pstmt1.setDouble(1,newbal2);
                                 pstmt1.setInt(2,Integer.parseInt(userid));
 
-                                // Execute the statement
+
                                 pstmt1.executeUpdate();
                                 pstmt1.close();
+
+                                String selectSql = "SELECT wallet FROM users WHERE email = ?";
+
+                                PreparedStatement selectStmt = connection.prepareStatement(selectSql);
+                                selectStmt.setString(1, name);
+
+                                ResultSet resultSet = selectStmt.executeQuery();
+
+                                double currentBalance = 0.0;
+                                if (resultSet.next()) {
+
+                                    currentBalance = resultSet.getDouble("wallet");
+                                }
+
+                                resultSet.close();
+                                selectStmt.close();
+
+
+                                String sql3 = "UPDATE users SET wallet = ? WHERE email = ?";
+                                double newbal3 = currentBalance + Double.parseDouble(price);
+                                String fspec3 = String.format("%.2f",newbal3);
+                                double newbal33 = Double.parseDouble(fspec3);
+
+
+                                PreparedStatement pstmt33 = connection.prepareStatement(sql3);
+                                pstmt33.setDouble(1,newbal33);
+                                pstmt33.setString(2,name);
+
+
+                                pstmt33.executeUpdate();
+                                pstmt33.close();
+
+
 
                                 String sql2 = "INSERT INTO purchasedbooks (bookid,userid) VALUES (?,?)";
                                 PreparedStatement pstmt3 = connection.prepareStatement(sql2);
@@ -286,33 +325,16 @@ public class BookViewMain extends AppCompatActivity {
         dlButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(BookViewMain.this,
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(BookViewMain.this,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
 
-                    ActivityCompat.requestPermissions(BookViewMain.this,
-                            new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSION_REQUEST_CODE);
-                } else {
+                    System.out.println("Hi");
                     Uri uri = Uri.parse(bookpdf);
                     String fileName = getFileName(uri);
                     String uniqueFileName = getUniqueFileName(fileName);
                     saveFileFromUri(uri, uniqueFileName);
-                }
+                /*}*/
             }
         });
 
-        // Request permission if not granted initially
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    PERMISSION_REQUEST_CODE);
-        }
 
 
         read_more_aboutAudiobook = (LinearLayout) findViewById(R.id.read_more_aboutAudiobook);
@@ -329,7 +351,7 @@ public class BookViewMain extends AppCompatActivity {
                     read_more.setText("Read less");
                     flag = true;
                 } else {
-                    params.height = 60; // Set the height to a fixed value
+                    params.height = 60;
                     arrow.setRotationX(0);
                     read_more.setText("Read more");
                     flag = false;
@@ -352,7 +374,7 @@ public class BookViewMain extends AppCompatActivity {
                     read_more.setText("Read less");
                     flag = true;
                 } else {
-                    params.height = 60; // Set the height to a fixed value
+                    params.height = 60;
                     arrow.setRotationX(0);
                     read_more.setText("Read more");
                     flag = false;
@@ -381,11 +403,11 @@ public class BookViewMain extends AppCompatActivity {
                                 Class.forName("com.mysql.jdbc.Driver");
 
                                 // Define the connection URL
-                                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                                 // Provide database credentials
-                                String username = "";
-                                String password = "";
+                                String username = "sql12709204";
+                                String password = "aHVxXZQU8u";
 
                                 // Establish the database connection
                                 connection = DriverManager.getConnection(url, username, password);
@@ -403,27 +425,27 @@ public class BookViewMain extends AppCompatActivity {
                                     currate = rs.getDouble("rate");
                                 }
 
-                                // Close the select statement
+
                                 selectStmt.close();
 
-                                // Increment the buyers value
+
                                 int newBuyers = currentBuyers + 1;
 
-                                // SQL statement to update the buyers and rate fields in the database
+
                                 String updateSql = "UPDATE books SET buyers = ?, rate = ? WHERE bookid = ?";
 
-                                // Get the new rating value
+
                                 double rateUp = ratingBar4.getRating();
                                 String formatme = String.format("%.1f", rateUp);
                                 double newRate = Double.parseDouble(formatme) + currate;
 
-                                // Create a prepared statement for the update
+
                                 PreparedStatement updateStmt = connection.prepareStatement(updateSql);
                                 updateStmt.setInt(1, newBuyers);
                                 updateStmt.setDouble(2, newRate);
                                 updateStmt.setInt(3, Integer.parseInt(bookid));
 
-                                // Execute the update statement
+
                                 int res = updateStmt.executeUpdate();
                                 System.out.println("Update result: " + res);
 
@@ -475,11 +497,11 @@ public class BookViewMain extends AppCompatActivity {
                         Class.forName("com.mysql.jdbc.Driver");
 
                         // Define the connection URL
-                        String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                        String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                         // Provide database credentials
-                        String username = "";
-                        String password = "";
+                        String username = "sql12709204";
+                        String password = "aHVxXZQU8u";
 
                         // Establish the database connection
                         connection = DriverManager.getConnection(url, username, password);
@@ -558,7 +580,6 @@ public class BookViewMain extends AppCompatActivity {
             }
         }
     }
-
     private String getFileName(Uri uri) {
         String fileName = "downloadedfile.pdf";
         if (uri.getScheme().equals("content")) {
@@ -612,17 +633,14 @@ public class BookViewMain extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Start file picker intent to choose a file
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("application/pdf");
-                startActivityForResult(intent, PICK_PDF_REQUEST);
+
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                System.out.println();
             }
         }
     }

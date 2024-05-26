@@ -5,122 +5,143 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/iphone_14___15_pro_max___2"
     tools:context=".SignUp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/iphone_14___15_pro_max___2__1_"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="150dp"
+                    android:background="@drawable/curved_background"
+                    android:backgroundTint="#DAFFFEFE"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/textView222"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30px"
+                        android:fontFamily="sans-serif-black"
+                        android:text="REGISTER"
+                        android:textColor="#3F3C6F"
+                        android:textSize="30sp" />
+
+                    <EditText
+                        android:id="@+id/nameText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="10"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:textSize="25sp" />
+
+                    <EditText
+                        android:id="@+id/emailText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="28dp"
+                        android:ems="10"
+                        android:hint="Email"
+                        android:inputType="text"
+                        android:textSize="25sp" />
+
+                    <EditText
+                        android:id="@+id/passwordText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="28dp"
+                        android:ems="10"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:textSize="25sp" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/maleText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Male"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/femaleText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Female"
+                            android:textSize="18sp" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/gobacklogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="Already have an account? Log In"
+                        android:textColor="#FF969A"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/SignupBut"
+                        android:layout_width="120dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="#FFAE99"
+                        android:text="Sign Up"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/ErrorRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:text="Invalid Email"
+                    android:textColor="#3F3C6F"
+                    android:textSize="20sp"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+        </ScrollView>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/ErrorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:layout_marginEnd="148dp"
-                android:text="Invalid Email"
-                android:textColor="#3F3C6F"
-                android:textSize="20sp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SignupBut" />
-
-            <Button
-                android:id="@+id/SignupBut"
-                android:layout_width="120dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="144dp"
-                android:backgroundTint="#FFAE99"
-                android:text="Sign Up"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gobacklogin" />
-
-            <TextView
-                android:id="@+id/gobacklogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="76dp"
-                android:text="Already have an account? Log In"
-                android:textColor="#FF969A"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="56dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordText">
-
-                <RadioButton
-                    android:id="@+id/maleText"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:textSize="18sp" />
-
-                <RadioButton
-                    android:id="@+id/femaleText"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:textSize="18sp" />
-            </RadioGroup>
-
-            <EditText
-                android:id="@+id/passwordText"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="56dp"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailText" />
-
-            <EditText
-                android:id="@+id/emailText"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="56dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="text"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameText" />
-
-            <EditText
-                android:id="@+id/nameText"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="248dp"
-                android:layout_marginEnd="56dp"
-                android:ems="10"
-                android:hint="Name"
-                android:inputType="text"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

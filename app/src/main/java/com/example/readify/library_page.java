@@ -118,11 +118,11 @@ public class library_page extends Fragment {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                 // Provide database credentials
-                String username = "";
-                String password = "";
+                String username = "sql12709204";
+                String password = "aHVxXZQU8u";
 
                 // Establish the database connection
                 connection = DriverManager.getConnection(url, username, password);
@@ -190,8 +190,8 @@ public class library_page extends Fragment {
                                 // Create the first ImageView
                                 ImageView imageView4 = new ImageView(getContext());
                                 LinearLayout.LayoutParams imageView4Params = new LinearLayout.LayoutParams(
-                                        480,
-                                        480
+                                        280,
+                                        280
                                 );
                                 imageView4.setLayoutParams(imageView4Params);
                                 imageView4.setImageURI(cover);
@@ -201,20 +201,20 @@ public class library_page extends Fragment {
                                 // Create the TextView
                                 TextView textView21 = new TextView(getContext());
                                 LinearLayout.LayoutParams textView21Params = new LinearLayout.LayoutParams(
-                                        700,
+                                        280,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                 );
                                 textView21Params.setMargins(40, 0, 40, 0);
                                 textView21.setLayoutParams(textView21Params);
                                 textView21.setText(title);
                                 textView21.setTypeface(null,Typeface.BOLD);
-                                textView21.setTextSize(14);
+                                textView21.setTextSize(12);
 
                                 // Create the second ImageView
                                 ImageView imageView5 = new ImageView(getContext());
                                 LinearLayout.LayoutParams imageView5Params = new LinearLayout.LayoutParams(
-                                        70,
-                                        70
+                                        30,
+                                        30
                                 );
                                 imageView5.setLayoutParams(imageView5Params);
                                 imageView5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.delete));
@@ -262,11 +262,11 @@ public class library_page extends Fragment {
                                                 Class.forName("com.mysql.jdbc.Driver");
 
                                                 // Define the connection URL
-                                                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                                                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                                                 // Provide database credentials
-                                                String username = "";
-                                                String password = "";
+                                                String username = "sql12709204";
+                                                String password = "aHVxXZQU8u";
 
                                                 // Establish the database connection
                                                 connection = DriverManager.getConnection(url, username, password);

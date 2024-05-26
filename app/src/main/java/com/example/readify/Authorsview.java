@@ -75,8 +75,7 @@ public class Authorsview extends Fragment {
     }
 
 
-    //Place your event listeners here
-    //use view.setOnclick...
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -280,6 +280,14 @@ public class PublishBook extends Fragment {
             System.out.println(oth.isChecked());
             System.out.println("URI: "+uri);
 
+            String uricoverme = uri.toString();
+            String uripdfme = uripdf.toString();
+
+            int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+            getActivity().getContentResolver().takePersistableUriPermission(uri, flags);
+
+            getActivity().getContentResolver().takePersistableUriPermission(uripdf, flags);
+
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             CountDownLatch latch = new CountDownLatch(1);
             executorService.execute(()->{
@@ -289,11 +297,11 @@ public class PublishBook extends Fragment {
                     Class.forName("com.mysql.jdbc.Driver");
 
                     // Define the connection URL
-                    String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                    String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
                     // Provide database credentials
-                    String username = "";
-                    String password = "";
+                    String username = "sql12709204";
+                    String password = "aHVxXZQU8u";
 
                     // Establish the database connection
                     connection = DriverManager.getConnection(url, username, password);
@@ -311,8 +319,8 @@ public class PublishBook extends Fragment {
                     pstmt.setInt(5, 0);
                     pstmt.setDouble(6, 0);
                     pstmt.setDouble(7,Double.parseDouble(priceinp.getText().toString()));
-                    pstmt.setString(8,uri+"");
-                    pstmt.setString(9,uripdf+"");
+                    pstmt.setString(8,uricoverme);
+                    pstmt.setString(9,uripdfme);
                     pstmt.setString(10,email);
 
                     // Execute the statement

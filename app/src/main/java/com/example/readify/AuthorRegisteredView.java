@@ -121,17 +121,17 @@ public class AuthorRegisteredView extends Fragment {
         executorService.execute(()->{
             Connection connection = null;
             try {
-                // Load the JDBC driver
+
                 Class.forName("com.mysql.jdbc.Driver");
 
-                // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
 
-                // Provide database credentials
-                String username = "";
-                String password = "";
+                String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
-                // Establish the database connection
+
+                String username = "sql12709204";
+                String password = "aHVxXZQU8u";
+
+
                 connection = DriverManager.getConnection(url, username, password);
                 System.out.println("Connected...");
 
@@ -159,30 +159,28 @@ public class AuthorRegisteredView extends Fragment {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                            params.setMargins(15, 0, 15, 0);
+                            params.setMargins(3, 0, 3, 0);
                             firstVerticalLayout.setLayoutParams(params);
                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                             firstHorizontalLayout.addView(firstVerticalLayout);
                             firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
-                            // Get the existing drawable resource
+
                             Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                             firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                             ImageView imageView1 = new ImageView(requireContext());
                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                    600, 700);
+                                    300, 400);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                             TextView textView11 = new TextView(requireContext());
                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -190,7 +188,7 @@ public class AuthorRegisteredView extends Fragment {
                             textViewParams.setMargins(0, 30, 0, 0);
                             textView11.setLayoutParams(textViewParams);
                             textView11.setText(title+"");
-                            textView11.setTextSize(17);
+                            textView11.setTextSize(14);
                             textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             textView11.setTypeface(null, Typeface.BOLD);
                             firstVerticalLayout.addView(textView11);
@@ -233,32 +231,31 @@ public class AuthorRegisteredView extends Fragment {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                            params.setMargins(15, 0, 15, 0);
+                            params.setMargins(3, 0, 3, 0);
                             firstVerticalLayout.setLayoutParams(params);
                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                             ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
                             firstVerticalLayout.setBackgroundColor(Color.WHITE);
                             firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
 
 
                             Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                             firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                             ImageView imageView1 = new ImageView(requireContext());
                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                    600, 700);
+                                    300, 400);
                             imageView1.setLayoutParams(imageViewParams);
                             imageView1.setImageURI(cover);
                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                             TextView textView11 = new TextView(requireContext());
                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -266,7 +263,7 @@ public class AuthorRegisteredView extends Fragment {
                             textViewParams.setMargins(0, 30, 0, 0);
                             textView11.setLayoutParams(textViewParams);
                             textView11.setText(title+"");
-                            textView11.setTextSize(17);
+                            textView11.setTextSize(14);
                             textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             textView11.setTypeface(null, Typeface.BOLD);
                             firstVerticalLayout.addView(textView11);
@@ -317,7 +314,7 @@ public class AuthorRegisteredView extends Fragment {
         SearchBarAuthor.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // Check if the Enter key was pressed and it's an action down event
+
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     LinearLayout parentLinearLayout = view.findViewById(R.id.authorbookbox);
@@ -334,17 +331,17 @@ public class AuthorRegisteredView extends Fragment {
                     executorService.execute(()->{
                         Connection connection = null;
                         try {
-                            // Load the JDBC driver
+
                             Class.forName("com.mysql.jdbc.Driver");
 
-                            // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
 
-                            // Provide database credentials
-                            String username = "";
-                            String password = "";
+                            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12709204";
 
-                            // Establish the database connection
+
+                            String username = "sql12709204";
+                            String password = "aHVxXZQU8u";
+
+
                             connection = DriverManager.getConnection(url, username, password);
                             System.out.println("Connected...");
 
@@ -375,30 +372,28 @@ public class AuthorRegisteredView extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         firstHorizontalLayout.addView(firstVerticalLayout);
                                         firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
-                                        // Get the existing drawable resource
+
                                         Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                                         firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                                         TextView textView11 = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -406,7 +401,7 @@ public class AuthorRegisteredView extends Fragment {
                                         textViewParams.setMargins(0, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
@@ -450,32 +445,31 @@ public class AuthorRegisteredView extends Fragment {
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                 LinearLayout.LayoutParams.MATCH_PARENT);
-                                        params.setMargins(15, 0, 15, 0);
+                                        params.setMargins(3, 0, 3, 0);
                                         firstVerticalLayout.setLayoutParams(params);
                                         firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                         ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
                                         firstVerticalLayout.setBackgroundColor(Color.WHITE);
                                         firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
 
 
                                         Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                                         firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                                         ImageView imageView1 = new ImageView(requireContext());
                                         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                600, 700);
+                                                300, 400);
                                         imageView1.setLayoutParams(imageViewParams);
                                         imageView1.setImageURI(cover);
                                         imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                                         TextView textView11 = new TextView(requireContext());
                                         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -483,7 +477,7 @@ public class AuthorRegisteredView extends Fragment {
                                         textViewParams.setMargins(0, 30, 0, 0);
                                         textView11.setLayoutParams(textViewParams);
                                         textView11.setText(title+"");
-                                        textView11.setTextSize(17);
+                                        textView11.setTextSize(14);
                                         textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                         textView11.setTypeface(null, Typeface.BOLD);
                                         firstVerticalLayout.addView(textView11);
@@ -551,30 +545,28 @@ public class AuthorRegisteredView extends Fragment {
                                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                                            params.setMargins(15, 0, 15, 0);
+                                            params.setMargins(3, 0, 3, 0);
                                             firstVerticalLayout.setLayoutParams(params);
                                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                             firstHorizontalLayout.addView(firstVerticalLayout);
                                             firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
-                                            // Get the existing drawable resource
+
                                             Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                                             firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                                             ImageView imageView1 = new ImageView(requireContext());
                                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                    600, 700);
+                                                    300, 400);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
                                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                             firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                                             TextView textView11 = new TextView(requireContext());
                                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -582,7 +574,7 @@ public class AuthorRegisteredView extends Fragment {
                                             textViewParams.setMargins(0, 30, 0, 0);
                                             textView11.setLayoutParams(textViewParams);
                                             textView11.setText(title+"");
-                                            textView11.setTextSize(17);
+                                            textView11.setTextSize(14);
                                             textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                             textView11.setTypeface(null, Typeface.BOLD);
                                             firstVerticalLayout.addView(textView11);
@@ -626,32 +618,31 @@ public class AuthorRegisteredView extends Fragment {
                                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                                     LinearLayout.LayoutParams.MATCH_PARENT);
-                                            params.setMargins(15, 0, 15, 0);
+                                            params.setMargins(3, 0, 3, 0);
                                             firstVerticalLayout.setLayoutParams(params);
                                             firstVerticalLayout.setOrientation(LinearLayout.VERTICAL);
                                             ((LinearLayout) parentLinearLayout.getChildAt(parentLinearLayout.getChildCount() - 1)).addView(firstVerticalLayout);
                                             firstVerticalLayout.setBackgroundColor(Color.WHITE);
                                             firstVerticalLayout.setPadding(20,20,20,20);
-                /*int color = ContextCompat.getColor(requireContext(), R.color.bookback);
-                firstVerticalLayout.setBackgroundColor(Color.WHITE);*/
+
 
 
                                             Drawable existingDrawable = ContextCompat.getDrawable(getContext(), R.drawable.curved_background);
 
-// Set the background drawable for your LinearLayout
+
                                             firstVerticalLayout.setBackground(existingDrawable);
 
 
-// Create and add ImageView to the first vertical LinearLayout
+
                                             ImageView imageView1 = new ImageView(requireContext());
                                             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
-                                                    600, 700);
+                                                    300, 400);
                                             imageView1.setLayoutParams(imageViewParams);
                                             imageView1.setImageURI(cover);
                                             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                             firstVerticalLayout.addView(imageView1);
 
-// Create and add TextView to the first vertical LinearLayout
+
                                             TextView textView11 = new TextView(requireContext());
                                             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -659,7 +650,7 @@ public class AuthorRegisteredView extends Fragment {
                                             textViewParams.setMargins(0, 30, 0, 0);
                                             textView11.setLayoutParams(textViewParams);
                                             textView11.setText(title+"");
-                                            textView11.setTextSize(17);
+                                            textView11.setTextSize(14);
                                             textView11.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                             textView11.setTypeface(null, Typeface.BOLD);
                                             firstVerticalLayout.addView(textView11);
@@ -709,7 +700,7 @@ public class AuthorRegisteredView extends Fragment {
                     });
                     return true;
                 }
-                return false; // Return false to let the event be handled normally
+                return false;
             }
         });
 
