@@ -1,6 +1,8 @@
 package com.example.readify;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -77,10 +79,29 @@ public class DashBoard extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainerView, DashBoardFrag.class, null);*/
 
         ImageButton AuthorView = (ImageButton) findViewById(R.id.AuthorView);
+        ImageButton HomeButt = (ImageButton) findViewById(R.id.HomeButt);
+        ImageButton LibraryBut = (ImageButton) findViewById(R.id.LibraryBut);
+        ImageButton WalletBut = (ImageButton) findViewById(R.id.WalletBut);
+        TextView HomeText = (TextView) findViewById(R.id.HomeText);
+        TextView AuthText = (TextView) findViewById(R.id.AuthorText);
+        TextView LibText = (TextView) findViewById(R.id.LibText);
+        TextView WalletText = (TextView) findViewById(R.id.WalletText);
 
         AuthorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String hexColor = "#FF969A";
+                AuthorView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(hexColor)));
+                HomeButt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                LibraryBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                WalletBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+                AuthText.setTextColor(Color.parseColor(hexColor));
+                HomeText.setTextColor(Color.parseColor("#FFFFFF"));
+                LibText.setTextColor(Color.parseColor("#FFFFFF"));
+                WalletText.setTextColor(Color.parseColor("#FFFFFF"));
+
 
                 ExecutorService executorService = Executors.newSingleThreadExecutor();
                 executorService.execute(()->{
@@ -161,11 +182,22 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        ImageButton HomeButt = (ImageButton) findViewById(R.id.HomeButt);
+
 
         HomeButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String hexColor = "#FF969A";
+                HomeButt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(hexColor)));
+                AuthorView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                LibraryBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                WalletBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+                HomeText.setTextColor(Color.parseColor(hexColor));
+                AuthText.setTextColor(Color.parseColor("#FFFFFF"));
+                LibText.setTextColor(Color.parseColor("#FFFFFF"));
+                WalletText.setTextColor(Color.parseColor("#FFFFFF"));
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -183,10 +215,21 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        ImageButton WalletBut = (ImageButton) findViewById(R.id.WalletBut);
+
         WalletBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String hexColor = "#FF969A";
+                WalletBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(hexColor)));
+                HomeButt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                LibraryBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                AuthorView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+                WalletText.setTextColor(Color.parseColor(hexColor));
+                AuthText.setTextColor(Color.parseColor("#FFFFFF"));
+                LibText.setTextColor(Color.parseColor("#FFFFFF"));
+                HomeText.setTextColor(Color.parseColor("#FFFFFF"));
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -204,10 +247,21 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        ImageButton LibraryBut = (ImageButton) findViewById(R.id.LibraryBut);
+
         LibraryBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String hexColor = "#FF969A";
+                LibraryBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(hexColor)));
+                HomeButt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                AuthorView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                WalletBut.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+                LibText.setTextColor(Color.parseColor(hexColor));
+                AuthText.setTextColor(Color.parseColor("#FFFFFF"));
+                WalletText.setTextColor(Color.parseColor("#FFFFFF"));
+                HomeText.setTextColor(Color.parseColor("#FFFFFF"));
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

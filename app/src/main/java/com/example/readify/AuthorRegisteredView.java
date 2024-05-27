@@ -116,6 +116,9 @@ public class AuthorRegisteredView extends Fragment {
         firstHorizontalLayout1.setPadding(0, 20, 0, 20);
         parentLinearLayout.addView(firstHorizontalLayout1);
 
+        TextView SearchBarAuthor2 = (TextView) view.findViewById(R.id.SearchBarAuthor);
+        SearchBarAuthor2.setHintTextColor(Color.WHITE);
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(()->{

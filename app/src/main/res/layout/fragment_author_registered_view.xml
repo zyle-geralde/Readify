@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#FFAE99"
+            android:background="@drawable/curved_search"
+            android:backgroundTint="#3E3C6B"
             android:gravity="center"
             android:orientation="horizontal">
 

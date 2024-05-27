@@ -42,7 +42,6 @@
                     android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="5dp"
-                    android:text="1000.56"
                     android:textSize="16dp" />
             </LinearLayout>
 

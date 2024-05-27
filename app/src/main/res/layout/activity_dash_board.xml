@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F6E8DD"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +41,12 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/curveselect"
+                android:backgroundTint="#3E3C6B"
                 android:gravity="center"
                 android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <LinearLayout
@@ -62,15 +67,17 @@
                             android:layout_width="60px"
                             android:layout_height="60px"
                             android:background="@drawable/home"
+                            android:backgroundTint="#FFFFFF"
                             app:srcCompat="@drawable/home" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/HomeText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20px"
                             android:text="Home"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -85,16 +92,17 @@
                             android:layout_width="60px"
                             android:layout_height="60px"
                             android:layout_weight="1"
-                            android:background="@drawable/book__1_"
-                            app:srcCompat="@drawable/book__1_" />
+                            android:background="@drawable/book__3_"
+                            android:backgroundTint="#FAF6F6" />
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/LibText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20px"
                             android:text="Library"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -109,15 +117,17 @@
                             android:layout_width="60px"
                             android:layout_height="60px"
                             android:background="@drawable/wallet"
+                            android:backgroundTint="#FFFFFF"
                             app:srcCompat="@drawable/wallet" />
 
                         <TextView
-                            android:id="@+id/textView4"
+                            android:id="@+id/WalletText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20px"
                             android:text="Wallet"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -132,16 +142,18 @@
                             android:layout_width="60px"
                             android:layout_height="60px"
                             android:layout_weight="1"
-                            android:background="@drawable/writer__2_" />
+                            android:background="@drawable/writer__2_"
+                            android:backgroundTint="#FFFFFF" />
 
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/AuthorText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20px"
                             android:layout_weight="1"
                             android:text="Author"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 

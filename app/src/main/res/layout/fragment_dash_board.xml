@@ -15,7 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#FFAE99"
+            android:background="@drawable/curved_search"
+            android:backgroundTint="#3E3C6B"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -26,7 +27,8 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="Search"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/white" />
 
             <ImageButton
                 android:id="@+id/LogOutButton"
@@ -51,7 +53,8 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#FFAE99" />
 
         </LinearLayout>
 
