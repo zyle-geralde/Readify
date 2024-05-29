@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
         TextView errorText = (TextView) findViewById(R.id.errorText);
         errorText.setVisibility(View.GONE);
 

@@ -1,26 +1,23 @@
 package com.example.readify;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
@@ -38,6 +35,12 @@ public class DashBoard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        LinearLayout logo_with_search = (LinearLayout) findViewById(R.id.logo_with_search_iconID);
+        ImageView search = (ImageView) findViewById(R.id.search_icon_ID);
+        ImageView logo = (ImageView) findViewById(R.id.fullLogoID);
+        LinearLayout spinnerLayout = (LinearLayout) findViewById(R.id.spinnerLayoutID);
+        FragmentContainerView fragmentView = (FragmentContainerView) findViewById(R.id.fragmentContainerView);
 
         Intent intent = getIntent();
         String uid = intent.getStringExtra("userid");
@@ -70,6 +73,7 @@ public class DashBoard extends AppCompatActivity {
 
         transaction.commit();
 
+
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setReorderingAllowed(true);
@@ -77,6 +81,8 @@ public class DashBoard extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainerView, DashBoardFrag.class, null);*/
 
         ImageButton AuthorView = (ImageButton) findViewById(R.id.AuthorView);
+        LinearLayout navBar = (LinearLayout) findViewById(R.id.nav_bar_id);
+
 
         AuthorView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +111,6 @@ public class DashBoard extends AppCompatActivity {
 
                         String selectQuery = "SELECT * FROM users";
                         ResultSet resultSet = statement.executeQuery(selectQuery);
-
 
                         while(resultSet.next()){
                             int euserid = resultSet.getInt("UserId");

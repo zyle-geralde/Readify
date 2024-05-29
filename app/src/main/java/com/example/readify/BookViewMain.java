@@ -81,6 +81,27 @@ public class BookViewMain extends AppCompatActivity {
         book_title = (TextView) findViewById(R.id.book_title);
         book_title.setText(title);
 
+//        TextView review = findViewById(R.id.about_author_preview);
+//        TextView read_more = findViewById(R.id.author_read_more_text);
+//        ImageView arrow = findViewById(R.id.author_arrow);
+//        ViewGroup.LayoutParams params = review.getLayoutParams();
+//        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//        if(params.height <= 60) {
+//            read_more.setText("");
+//            arrow.setVisibility(View.INVISIBLE);
+//        }
+//
+//        TextView review1 = findViewById(R.id.about_book_preview);
+//        TextView read_more1 = findViewById(R.id.audiobook_read_more_text);
+//        ImageView arrow1 = findViewById(R.id.audiobook_arrow);
+//        ViewGroup.LayoutParams params1 = review1.getLayoutParams();
+//        params1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//        if(params1.height <= 60) {
+//            read_more1.setText("" + params1.height);
+//            arrow1.setVisibility(View.INVISIBLE);
+//        }
+
+
         TextView book_author = (TextView) findViewById(R.id.book_author);
         book_author.setText(name);
         ImageView book_cover_photo = (ImageView) findViewById(R.id.book_cover_photo);
@@ -345,6 +366,12 @@ public class BookViewMain extends AppCompatActivity {
                 TextView read_more = findViewById(R.id.author_read_more_text);
                 ImageView arrow = findViewById(R.id.author_arrow);
                 ViewGroup.LayoutParams params = review.getLayoutParams();
+//                if(ViewGroup.LayoutParams.WRAP_CONTENT <= 60) {
+//                    read_more.setText("");
+//                    arrow.setVisibility(View.INVISIBLE);
+//                } else {
+//
+//                }
                 if (!flag) {
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     arrow.setRotationX(180);
