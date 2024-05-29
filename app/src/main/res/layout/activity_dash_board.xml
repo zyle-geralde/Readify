@@ -5,11 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3EFEB"
+    android:backgroundTint="#F3EFEB"
     tools:context=".DashBoard">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F3EFEB"
+        android:backgroundTint="#F3EFEB"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,9 +22,56 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="720dp"
-            android:background="#F6E8DD"
+            android:layout_height="775dp"
+            android:layout_weight="1"
+            android:background="#F3EFEB"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/logo_with_search_iconID"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/fullLogoID"
+                    android:layout_width="148dp"
+                    android:layout_height="69dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/readify__1_" />
+
+                <ImageView
+                    android:id="@+id/search_icon_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="175dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/search__1_" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/spinnerLayoutID"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="left"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:context=".DashBardFrag">
+
+                <Spinner
+                    android:id="@+id/mySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
@@ -30,15 +81,19 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_bar_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
+                android:layout_height="54dp"
+                android:layout_marginTop="7dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -50,18 +105,18 @@
 
                     <ImageButton
                         android:id="@+id/HomeButt"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
-                        android:background="@drawable/home"
-                        app:srcCompat="@drawable/home" />
+                        android:layout_width="110px"
+                        android:layout_height="115px"
+                        android:background="@drawable/home_icon_silhouette" />
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
+                        android:layout_marginTop="12px"
                         android:text="Home"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,19 +128,19 @@
 
                     <ImageButton
                         android:id="@+id/LibraryBut"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
-                        android:layout_weight="1"
-                        android:background="@drawable/book__1_"
-                        app:srcCompat="@drawable/book__1_" />
+                        android:layout_width="110px"
+                        android:layout_height="110px"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/book" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
+                        android:layout_marginTop="3dp"
                         android:text="Library"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,18 +152,19 @@
 
                     <ImageButton
                         android:id="@+id/WalletBut"
-                        android:layout_width="120px"
-                        android:layout_height="120px"
-                        android:background="@drawable/wallet"
+                        android:layout_width="100px"
+                        android:layout_height="110px"
+                        android:background="@drawable/wallet_passes_app"
                         app:srcCompat="@drawable/wallet" />
 
                     <TextView
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
+                        android:layout_marginTop="4dp"
                         android:text="Wallet"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -121,18 +177,20 @@
                     <ImageButton
                         android:id="@+id/AuthorView"
                         android:layout_width="120px"
-                        android:layout_height="120px"
+                        android:layout_height="110px"
+                        android:layout_marginTop="1dp"
                         android:layout_weight="1"
-                        android:background="@drawable/writer__2_" />
+                        android:background="@drawable/author" />
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
+                        android:layout_marginTop="3dp"
                         android:layout_weight="1"
                         android:text="Author"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="11sp" />
 
                 </LinearLayout>
 

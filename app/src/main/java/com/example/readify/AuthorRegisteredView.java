@@ -125,7 +125,7 @@ public class AuthorRegisteredView extends Fragment {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Define the connection URL
-                String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                String url = "jdbc:mysql://10.0.2.2:3306/dbreadifyv2";
 
                 // Provide database credentials
                 String username = "";
@@ -338,7 +338,7 @@ public class AuthorRegisteredView extends Fragment {
                             Class.forName("com.mysql.jdbc.Driver");
 
                             // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadifyv2";
 
                             // Provide database credentials
                             String username = "";
@@ -348,7 +348,7 @@ public class AuthorRegisteredView extends Fragment {
                             connection = DriverManager.getConnection(url, username, password);
                             System.out.println("Connected...");
 
-                            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books WHERE userid = ? AND title LIKE ?");
+                            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books WHERE userID = ? AND title LIKE ?");
                             preparedStatement.setInt(1, Integer.parseInt(uid)); // Set the value for the first placeholder
                             preparedStatement.setString(2, "%" + SearchBarAuthor.getText().toString() + "%");
                             ResultSet resultSet = preparedStatement.executeQuery();
@@ -356,7 +356,7 @@ public class AuthorRegisteredView extends Fragment {
                             int rowcount = 0;
                             while(resultSet.next()){
                                 rowcount++;
-                                int bookid = resultSet.getInt("bookid");
+                                int bookid = resultSet.getInt("bookID");
                                 Uri cover = Uri.parse(resultSet.getString("cover"));
                                 String title = resultSet.getString("title");
 

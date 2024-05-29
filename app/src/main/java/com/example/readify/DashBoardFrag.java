@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,10 @@ public class DashBoardFrag extends Fragment {
     String name;
 
     String email;
+    ImageView fullLogo;
+    ImageView searchIcon;
+    EditText SearchBarDash;
+    LinearLayout searchBar;
 
     public DashBoardFrag() {
         // Required empty public constructor
@@ -97,7 +102,37 @@ public class DashBoardFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dash_board, container, false);
+//        return inflater.inflate(R.layout.fragment_dash_board, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_dash_board, container, false);
+
+        // Initialize views
+//        searchIcon = (ImageView) rootView.findViewById(R.id.search_icon_ID);
+        searchIcon = rootView.findViewById(R.id.searchIconID);
+        fullLogo = rootView.findViewById(R.id.fullLogoID);
+        SearchBarDash = rootView.findViewById(R.id.SearchBarDash);
+        searchBar = rootView.findViewById(R.id.searchLinearLayoutID);
+
+        // Set onClickListener
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchIcon.setVisibility(View.GONE);
+                searchBar.setVisibility(View.VISIBLE);
+                fullLogo.setImageResource(R.drawable.readify__1____copy);
+//                fullLogo.setMaxWidth(30);
+                ViewGroup.LayoutParams params = fullLogo.getLayoutParams();
+                float density = getResources().getDisplayMetrics().density;
+                System.out.println("Density  is: " + density);
+                params.width = 240;
+                params.height = Math.round(65 * density);
+                fullLogo.setLayoutParams(params);
+//                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fullLogo.getLayoutParams();
+//                params.setMargins(10, 5, 0, 0);
+//                fullLogo.setLayoutParams(params);
+            }
+        });
+
+        return rootView;
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -383,7 +418,6 @@ public class DashBoardFrag extends Fragment {
                 System.out.println("Errorme"+e);
             }
 
-            EditText SearchBarDash = (EditText) view.findViewById(R.id.SearchBarDash);
             SearchBarDash.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -1740,6 +1774,5 @@ public class DashBoardFrag extends Fragment {
 
             }
         });
-
     }
 }

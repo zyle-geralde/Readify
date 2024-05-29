@@ -73,7 +73,7 @@ public class SignUp extends AppCompatActivity {
                             Class.forName("com.mysql.jdbc.Driver");
 
                             // Define the connection URL
-                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadify";
+                            String url = "jdbc:mysql://10.0.2.2:3306/dbreadifyv2";
 
                             // Provide database credentials
                             String username = "";
@@ -91,7 +91,7 @@ public class SignUp extends AppCompatActivity {
                             boolean prcd = true;
 
                             while(resultSet.next()){
-                                String email = resultSet.getString("Email");
+                                String email = resultSet.getString("email");
                                 if(emailText.getText().toString().trim().equals(email)){
                                     runOnUiThread(() -> {
                                         TextView errorText = (TextView) findViewById(R.id.ErrorRegister);
@@ -104,7 +104,7 @@ public class SignUp extends AppCompatActivity {
                             }
 
                             if(prcd){
-                                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (Name,Email, Password, Type, Gender) VALUES (?, ?, ?, ?, ?)");
+                                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name,email, password, type, gender) VALUES (?, ?, ?, ?, ?)");
                                 String name = emailText.getText().toString();
                                 String pass = passwordText.getText().toString();
                                 String name2 = nameText.getText().toString();
